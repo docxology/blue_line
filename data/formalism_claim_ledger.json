@@ -1,0 +1,382 @@
+{
+  "commitment_verdicts": [
+    "MAINTAINED",
+    "NEEDS_ATTENTION",
+    "STALE"
+  ],
+  "commitments": [
+    {
+      "id": "documented-handover",
+      "kind": "ARTIFACT",
+      "required_signals": [
+        "handover_note",
+        "run_instructions"
+      ],
+      "tags": [
+        "code",
+        "docs"
+      ],
+      "title": "Record how to continue the work",
+      "wire": "A steward leaving a commitment behind leaves instructions a successor can follow."
+    },
+    {
+      "id": "working-verification",
+      "kind": "SYSTEM",
+      "required_signals": [
+        "check_run",
+        "check_result"
+      ],
+      "tags": [
+        "code",
+        "infrastructure"
+      ],
+      "title": "Keep a runnable check for every live commitment",
+      "wire": "A maintained commitment can be exercised; the check that proves it still runs."
+    },
+    {
+      "id": "honest-status-signal",
+      "kind": "RELATIONSHIP",
+      "required_signals": [
+        "status_note"
+      ],
+      "tags": [
+        "code",
+        "docs",
+        "infrastructure"
+      ],
+      "title": "State the commitment's real condition",
+      "wire": "Record condition as it is, including decay, so the next decision starts from truth."
+    },
+    {
+      "id": "kept-promise-ledger",
+      "kind": "OBLIGATION",
+      "required_signals": [
+        "obligation_entry"
+      ],
+      "tags": [
+        "community",
+        "docs"
+      ],
+      "title": "Track obligations you have accepted",
+      "wire": "An accepted obligation is recorded with its state so it cannot silently lapse."
+    },
+    {
+      "id": "response-within-window",
+      "kind": "RELATIONSHIP",
+      "required_signals": [
+        "response_log"
+      ],
+      "tags": [
+        "community"
+      ],
+      "title": "Answer commitments made to people",
+      "wire": "Relationships to past work include the people who rely on it; respond inside the stated window."
+    },
+    {
+      "id": "dependency-notice",
+      "kind": "SYSTEM",
+      "required_signals": [
+        "dependency_review",
+        "downstream_list"
+      ],
+      "tags": [
+        "code",
+        "infrastructure"
+      ],
+      "title": "Notice what your work depends on and what depends on it",
+      "wire": "Stewardship looks both directions: upstream drift and downstream reliance are both watched."
+    },
+    {
+      "id": "decay-triage",
+      "kind": "SYSTEM",
+      "required_signals": [
+        "triage_log"
+      ],
+      "tags": [
+        "code",
+        "data",
+        "docs"
+      ],
+      "title": "Triage decay before it compounds",
+      "wire": "Scheduled attention to aging work keeps small rot from becoming abandonment."
+    },
+    {
+      "id": "archival-honesty",
+      "kind": "ARTIFACT",
+      "required_signals": [
+        "retirement_note"
+      ],
+      "tags": [
+        "community",
+        "docs"
+      ],
+      "title": "Retire commitments in the record, not in silence",
+      "wire": "A ended commitment is marked ended, with its final state recorded where successors look."
+    },
+    {
+      "id": "continuity-notes",
+      "kind": "RELATIONSHIP",
+      "required_signals": [
+        "continuity_note"
+      ],
+      "tags": [
+        "data",
+        "docs"
+      ],
+      "title": "Leave notes for the future self who inherits the work",
+      "wire": "The steward's own return is a relationship to past work; record context the returning self needs."
+    },
+    {
+      "id": "cared-for-data",
+      "kind": "ARTIFACT",
+      "required_signals": [
+        "data_check",
+        "data_description"
+      ],
+      "tags": [
+        "data"
+      ],
+      "title": "Keep recorded data usable for the next reader",
+      "wire": "Data under stewardship stays findable, described, and loadable, or its limits are stated."
+    },
+    {
+      "id": "review-before-reliance",
+      "kind": "OBLIGATION",
+      "required_signals": [
+        "review_note",
+        "rerun_result"
+      ],
+      "tags": [
+        "code",
+        "data",
+        "infrastructure"
+      ],
+      "title": "Re-examine a maintained thing before others rely on it again",
+      "wire": "Prior correctness does not survive drift; re-run, re-read, and re-decide before reuse."
+    },
+    {
+      "id": "stated-care-window",
+      "kind": "RELATIONSHIP",
+      "required_signals": [
+        "cadence_statement"
+      ],
+      "tags": [
+        "code",
+        "community",
+        "data",
+        "docs",
+        "infrastructure"
+      ],
+      "title": "Declare how often each commitment is visited",
+      "wire": "A stated visit cadence makes neglect observable instead of invisible."
+    }
+  ],
+  "figures": [
+    {
+      "description": "Every registry commitment grouped by kind, with its required care signals.",
+      "figure_id": "blue_registry_map",
+      "title": "Commitment registry map"
+    },
+    {
+      "description": "How declared and missing care signals resolve to each verdict state.",
+      "figure_id": "blue_verdict_paths",
+      "title": "Verdict paths"
+    },
+    {
+      "description": "How dated care signals age into fresh, stale, and set-aside bands.",
+      "figure_id": "blue_freshness_window",
+      "title": "Signal freshness window"
+    }
+  ],
+  "file_verdicts": [
+    "MAINTAINED",
+    "NEEDS_ATTENTION",
+    "OUTSIDE_SCOPE",
+    "STALE"
+  ],
+  "kinds": [
+    "ARTIFACT",
+    "OBLIGATION",
+    "RELATIONSHIP",
+    "SYSTEM"
+  ],
+  "ledger_digest": "5f62f0b11fce0f2ec4992a87d1c0974e61ca910c2f906e02a56ef496852ccb27",
+  "registry_canonical": {
+    "commitments": [
+      {
+        "id": "documented-handover",
+        "kind": "ARTIFACT",
+        "required_signals": [
+          "handover_note",
+          "run_instructions"
+        ],
+        "tags": [
+          "code",
+          "docs"
+        ],
+        "title": "Record how to continue the work",
+        "wire": "A steward leaving a commitment behind leaves instructions a successor can follow."
+      },
+      {
+        "id": "working-verification",
+        "kind": "SYSTEM",
+        "required_signals": [
+          "check_run",
+          "check_result"
+        ],
+        "tags": [
+          "code",
+          "infrastructure"
+        ],
+        "title": "Keep a runnable check for every live commitment",
+        "wire": "A maintained commitment can be exercised; the check that proves it still runs."
+      },
+      {
+        "id": "honest-status-signal",
+        "kind": "RELATIONSHIP",
+        "required_signals": [
+          "status_note"
+        ],
+        "tags": [
+          "code",
+          "docs",
+          "infrastructure"
+        ],
+        "title": "State the commitment's real condition",
+        "wire": "Record condition as it is, including decay, so the next decision starts from truth."
+      },
+      {
+        "id": "kept-promise-ledger",
+        "kind": "OBLIGATION",
+        "required_signals": [
+          "obligation_entry"
+        ],
+        "tags": [
+          "community",
+          "docs"
+        ],
+        "title": "Track obligations you have accepted",
+        "wire": "An accepted obligation is recorded with its state so it cannot silently lapse."
+      },
+      {
+        "id": "response-within-window",
+        "kind": "RELATIONSHIP",
+        "required_signals": [
+          "response_log"
+        ],
+        "tags": [
+          "community"
+        ],
+        "title": "Answer commitments made to people",
+        "wire": "Relationships to past work include the people who rely on it; respond inside the stated window."
+      },
+      {
+        "id": "dependency-notice",
+        "kind": "SYSTEM",
+        "required_signals": [
+          "dependency_review",
+          "downstream_list"
+        ],
+        "tags": [
+          "code",
+          "infrastructure"
+        ],
+        "title": "Notice what your work depends on and what depends on it",
+        "wire": "Stewardship looks both directions: upstream drift and downstream reliance are both watched."
+      },
+      {
+        "id": "decay-triage",
+        "kind": "SYSTEM",
+        "required_signals": [
+          "triage_log"
+        ],
+        "tags": [
+          "code",
+          "data",
+          "docs"
+        ],
+        "title": "Triage decay before it compounds",
+        "wire": "Scheduled attention to aging work keeps small rot from becoming abandonment."
+      },
+      {
+        "id": "archival-honesty",
+        "kind": "ARTIFACT",
+        "required_signals": [
+          "retirement_note"
+        ],
+        "tags": [
+          "community",
+          "docs"
+        ],
+        "title": "Retire commitments in the record, not in silence",
+        "wire": "A ended commitment is marked ended, with its final state recorded where successors look."
+      },
+      {
+        "id": "continuity-notes",
+        "kind": "RELATIONSHIP",
+        "required_signals": [
+          "continuity_note"
+        ],
+        "tags": [
+          "data",
+          "docs"
+        ],
+        "title": "Leave notes for the future self who inherits the work",
+        "wire": "The steward's own return is a relationship to past work; record context the returning self needs."
+      },
+      {
+        "id": "cared-for-data",
+        "kind": "ARTIFACT",
+        "required_signals": [
+          "data_check",
+          "data_description"
+        ],
+        "tags": [
+          "data"
+        ],
+        "title": "Keep recorded data usable for the next reader",
+        "wire": "Data under stewardship stays findable, described, and loadable, or its limits are stated."
+      },
+      {
+        "id": "review-before-reliance",
+        "kind": "OBLIGATION",
+        "required_signals": [
+          "review_note",
+          "rerun_result"
+        ],
+        "tags": [
+          "code",
+          "data",
+          "infrastructure"
+        ],
+        "title": "Re-examine a maintained thing before others rely on it again",
+        "wire": "Prior correctness does not survive drift; re-run, re-read, and re-decide before reuse."
+      },
+      {
+        "id": "stated-care-window",
+        "kind": "RELATIONSHIP",
+        "required_signals": [
+          "cadence_statement"
+        ],
+        "tags": [
+          "code",
+          "community",
+          "data",
+          "docs",
+          "infrastructure"
+        ],
+        "title": "Declare how often each commitment is visited",
+        "wire": "A stated visit cadence makes neglect observable instead of invisible."
+      }
+    ],
+    "tag_vocabulary": [
+      "code",
+      "community",
+      "data",
+      "docs",
+      "infrastructure"
+    ]
+  },
+  "registry_digest": "9ae7cae1f0f7389f2f58bd7f75a2038a4c48d791166bf79c100d78f2f379e8fd",
+  "schema": "blue_line.formalism-claim-ledger/1.0"
+}

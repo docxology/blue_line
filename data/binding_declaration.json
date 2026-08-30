@@ -1,0 +1,12 @@
+{
+  "color": "blue",
+  "id": "blue_line",
+  "job": "Stewardship of maintained commitments: systems, obligations, and relationships to past work",
+  "must_not_become": "A warranty, SLA, availability guarantee, or proof of maintenance",
+  "opus_stage": null,
+  "package_name": "blue_line",
+  "question": "What must I keep working?",
+  "registry_noun": "commitments",
+  "verdict_noun": "stewardship status",
+  "working_position": null
+}

@@ -1,0 +1,21 @@
+paper:
+  title: "The Blue Line: A Stewardship Instrument for Maintained Commitments"
+  subtitle: ""
+  version: "1.0"
+authors:
+  - name: "Daniel Ari Friedman"
+    orcid: "0000-0001-6232-9096"
+    email: "daniel@activeinference.institute"
+    affiliation: "Active Inference Institute"
+    corresponding: true
+publication:
+  doi: ""
+  journal: ""
+keywords:
+  - "stewardship"
+  - "maintenance"
+  - "line set"
+  - "accountability"
+metadata:
+  license: "Apache-2.0"
+  language: "en"

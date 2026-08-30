@@ -1,0 +1,27 @@
+# Claim ledger — hand-maintained. What this repo claims and refuses to claim.
+schema: blue_line.claim-ledger/1.0
+line_id: blue_line
+question: What must I keep working?
+must_not_become: A warranty, SLA, availability guarantee, or proof of maintenance
+
+claims:
+  - id: verdict-is-declaration-coverage
+    claim: >-
+      A reading states which required care signals the declarer marked fresh
+      at the review date, per applicable registry commitment.
+    never: >-
+      It never states that the care happened, that the commitment is healthy,
+      or that anything is safe.
+  - id: fail-closed-on-empty
+    claim: An empty scan set yields OUTSIDE_SCOPE with a note.
+    never: It is never treated as a pass or an exception.
+  - id: derived-numbers
+    claim: All digests, counts, and verdicts are derived at run time.
+    never: No number is hardcoded in source or prose.
+
+non_claims:
+  - not a maintenance certificate
+  - not a warranty, SLA, or availability guarantee
+  - not permission or authorization of any action
+  - not a verification of any declared label's truth
+  - not a ranking or evaluation of the other line instruments

@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this instrument, please cite it as below."
+title: blue_line
+type: software
+authors:
+  - alias: daf
+    name-ids:
+      - https://orcid.org/0000-0001-6232-9096
+version: 0.1.0
+date: "2026-08-29"
+abstract: >-
+  A stewardship instrument for maintained commitments: systems, obligations,
+  and relationships to past work. Reads a declared file of commitments
+  against a versioned registry and returns a fail-closed declaration-
+  coverage verdict. Never a warranty, SLA, or proof of maintenance.
+license: Apache-2.0
