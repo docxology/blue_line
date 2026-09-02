@@ -15,4 +15,4 @@ Where the black line asks how to do strong work and the white line asks
 what is absent, the blue line asks what already exists and still needs me.
 It is, by design, a stageless line: the four classical opus stages are
 allocated to the sibling colours, and the set's extension contract accepts
-a fifth colour with no stage rather than inventing a fifth name.
+a colour with no stage rather than inventing a new stage name.
