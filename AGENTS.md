@@ -51,4 +51,4 @@ uv run pytest tests/test_formalism_claim_ledger.py
   envelopes, line_set binding declaration
 - `docs/` — claim_boundaries, development, extensibility (line-specific),
   releases
-- `manuscript/` — the line's manuscript
+- `docs/manuscript/` — the line's manuscript

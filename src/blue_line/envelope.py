@@ -47,6 +47,7 @@ def build_envelope(
         "schema_version": ENVELOPE_SCHEMA,
         "line_id": BLUE_LINE_ID,
         "native_status": reading.status.value,
+        "registry_version": reading.registry_version,
         "registry_digest": reading.registry_digest,
         "report_ref": reading_digest(reading),
         "review_date": reading.read_as_of,

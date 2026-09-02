@@ -97,4 +97,5 @@ class StewardshipReading:
     findings: tuple[CommitmentFinding, ...]
     intake_notes: tuple[str, ...] = ()
     read_as_of: str = ""
+    registry_version: str = ""
     registry_digest: str = ""

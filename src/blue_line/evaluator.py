@@ -22,6 +22,7 @@ from .records import (
 )
 from .registry import BLUE_COMMITMENTS, COMMITMENT_TAG_VOCABULARY
 from .serialization import registry_digest
+from .version import __version__
 
 #: Signals are stale when older than this many days at the review date.
 DEFAULT_MAX_SIGNAL_AGE_DAYS = 180
@@ -147,6 +148,7 @@ def read_file(
             findings=(),
             intake_notes=(shape_error,),
             read_as_of="",
+            registry_version=__version__,
             registry_digest="",
         )
 
@@ -160,6 +162,7 @@ def read_file(
             findings=(),
             intake_notes=notes,
             read_as_of=review_date.isoformat(),
+            registry_version=__version__,
             registry_digest=registry_digest(commitments),
         )
     file = staged
@@ -236,6 +239,7 @@ def read_file(
         findings=tuple(findings),
         intake_notes=notes,
         read_as_of=review_date.isoformat(),
+        registry_version=__version__,
         registry_digest=digest,
     )
 

@@ -20,6 +20,7 @@ ENVELOPE_FIELDS = {
     "schema_version",
     "line_id",
     "native_status",
+    "registry_version",
     "registry_digest",
     "report_ref",
     "review_date",

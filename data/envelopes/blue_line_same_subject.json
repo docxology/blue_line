@@ -1,10 +1,11 @@
 {
+  "schema_version": "line.report-envelope/1.0",
   "line_id": "blue_line",
   "native_status": "MAINTAINED",
+  "registry_version": "0.1.0",
   "registry_digest": "9ae7cae1f0f7389f2f58bd7f75a2038a4c48d791166bf79c100d78f2f379e8fd",
   "report_ref": "be0cd654cd922550f2079b9c746487ad0000bae871535a653c7f63334d8bf86e",
   "review_date": "2026-08-01",
-  "schema_version": "line.report-envelope/1.0",
   "scope_and_nonclaims": [
     "describes declaration coverage of self-declared care signals at a stated review date",
     "not a maintenance, warranty, SLA, availability, or support claim",
