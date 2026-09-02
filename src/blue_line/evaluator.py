@@ -303,7 +303,9 @@ def invariants_hold(
         (
             "distinct_commitment_ids",
             len(ids) == len(set(ids)),
-            "" if len(ids) == len(set(ids)) else f"duplicates: {sorted(set(ids) - set())}",
+            ""
+            if len(ids) == len(set(ids))
+            else f"duplicates: {sorted(name for name in set(ids) if ids.count(name) > 1)}",
         )
     )
     results.append(

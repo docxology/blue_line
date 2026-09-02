@@ -55,6 +55,29 @@ def test_read_file_cli_maintained():
     assert data["status"] == "MAINTAINED"
 
 
+def test_read_file_cli_as_of_override():
+    payload = json.dumps(
+        {
+            "description": "an aging repo",
+            "tags": ["code"],
+            "dated_evidence": [{"label": "check_run", "noted_on": "2025-06-01"}],
+        }
+    )
+    fresh = _run("read_file_cli.py", payload, "--as-of", "2025-07-01")
+    stale = _run("read_file_cli.py", payload, "--as-of", "2026-08-01")
+    assert fresh.returncode == 0 and stale.returncode == 0
+    # tag "code" matches commitments that need more signals than check_run,
+    # so the fresh case is NEEDS_ATTENTION while the stale case flips to STALE.
+    assert json.loads(fresh.stdout)["status"] == "NEEDS_ATTENTION"
+    assert json.loads(stale.stdout)["status"] == "STALE"
+
+
+def test_read_file_cli_as_of_missing_value():
+    result = _run("read_file_cli.py", '{"description": "x"}', "--as-of")
+    assert result.returncode == 2
+    assert "--as-of requires" in result.stderr
+
+
 def test_read_file_cli_bad_json():
     result = _run("read_file_cli.py", "{not json")
     assert result.returncode == 2

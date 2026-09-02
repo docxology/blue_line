@@ -18,8 +18,19 @@ from blue_line.records import CareSignal  # noqa: E402
 
 def main(argv: list[str] | None = None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
+    as_of = "2026-08-01"
+    if "--as-of" in argv:
+        index = argv.index("--as-of")
+        if index + 1 >= len(argv):
+            print("--as-of requires a YYYY-MM-DD value", file=sys.stderr)
+            return 2
+        as_of = argv[index + 1]
+        argv = argv[:index] + argv[index + 2 :]
     if len(argv) != 1:
-        print("usage: read_file_cli.py '<json object>'", file=sys.stderr)
+        print(
+            "usage: read_file_cli.py '<json object>' [--as-of YYYY-MM-DD]",
+            file=sys.stderr,
+        )
         return 2
     try:
         payload = json.loads(argv[0])
@@ -38,7 +49,7 @@ def main(argv: list[str] | None = None) -> int:
         evidence=frozenset(payload.get("evidence", ())),
         dated_evidence=dated,
     )
-    reading, surfaces = read_with_surfaces(file, as_of="2026-08-01")
+    reading, surfaces = read_with_surfaces(file, as_of=as_of)
     print(
         json.dumps(
             {
