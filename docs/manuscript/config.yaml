@@ -1,6 +1,8 @@
 paper:
   title: "The Blue Line: A Stewardship Instrument for Maintained Commitments"
   subtitle: ""
+  cover:
+    image: "../../output/figures/blue_line_cover.png"
   version: "1.0"
 authors:
   - name: "Daniel Ari Friedman"

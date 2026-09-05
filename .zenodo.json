@@ -1,0 +1,60 @@
+{
+  "title": "The Blue Line: A Stewardship Instrument for Maintained Commitments",
+  "description": "<p>A stewardship instrument for maintained commitments: systems, obligations, and relationships to past work. It reads a declared file of commitments against a versioned registry and returns a fail-closed declaration-coverage verdict (MAINTAINED, NEEDS_ATTENTION, STALE, OUTSIDE_SCOPE) over the care signals each commitment requires. It measures whether the care a steward declared was fresh at the review date — never whether the care happened; a MAINTAINED verdict is not a warranty, SLA, availability guarantee, or proof of maintenance, and it never authorizes an action.</p><p><strong>License:</strong> Apache-2.0. See LICENSE in the repository.</p>",
+  "upload_type": "publication",
+  "publication_type": "workingpaper",
+  "creators": [
+    {
+      "name": "Friedman, Daniel Ari",
+      "affiliation": "Active Inference Institute",
+      "orcid": "0000-0001-6232-9096"
+    }
+  ],
+  "license": "apache-2.0",
+  "access_right": "open",
+  "version": "0.1.0",
+  "keywords": [
+    "stewardship",
+    "maintenance",
+    "line set",
+    "accountability"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/docxology/blue_line",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://github.com/docxology/black_line",
+      "relation": "isPartOf",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://github.com/docxology/golden_line",
+      "relation": "isPartOf",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://github.com/docxology/red_line",
+      "relation": "isPartOf",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://github.com/docxology/white_line",
+      "relation": "isPartOf",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://github.com/docxology/line_set",
+      "relation": "isPartOf",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://github.com/docxology/witness_register",
+      "relation": "references",
+      "scheme": "url"
+    }
+  ],
+  "notes": "One of the Line Set family of related works: eight instruments, their cross-line reader, and the witness register."
+}

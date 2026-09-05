@@ -186,6 +186,11 @@
       "description": "How dated care signals age into fresh, stale, and set-aside bands.",
       "figure_id": "blue_freshness_window",
       "title": "Signal freshness window"
+    },
+    {
+      "description": "The title-page plate: the registry's commitments drawn as kept strokes in the work's colour.",
+      "figure_id": "blue_line_cover",
+      "title": "Cover plate"
     }
   ],
   "file_verdicts": [
@@ -200,7 +205,7 @@
     "RELATIONSHIP",
     "SYSTEM"
   ],
-  "ledger_digest": "5f62f0b11fce0f2ec4992a87d1c0974e61ca910c2f906e02a56ef496852ccb27",
+  "ledger_digest": "951d7688b50adb477e298310ad368d9173568a59f8328691999365f417e4f827",
   "registry_canonical": {
     "commitments": [
       {
