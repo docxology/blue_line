@@ -18,6 +18,11 @@ claims:
   - id: derived-numbers
     claim: All digests, counts, and verdicts are derived at run time.
     never: No number is hardcoded in source or prose.
+  - id: freshness_window_default_days
+    kind: number
+    value: 180
+    source: src/blue_line/evaluator.py DEFAULT_MAX_SIGNAL_AGE_DAYS
+    source_tier: claim_ledger
 
 non_claims:
   - not a maintenance certificate
