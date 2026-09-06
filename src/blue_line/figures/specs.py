@@ -17,6 +17,12 @@ class FigureSpec:
     title: str
     description: str
 
+    @property
+    def label(self) -> str:
+        """The manuscript-facing ``fig:`` label, derived from the id."""
+
+        return "fig:" + self.figure_id.replace("_", "-")
+
 
 FIGURE_SPECS: tuple[FigureSpec, ...] = (
     FigureSpec(

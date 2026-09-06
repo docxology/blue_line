@@ -6,6 +6,8 @@ import json
 import shutil
 import subprocess
 from pathlib import Path
+from ..serialization import registry_digest
+from ..version import __version__
 
 from .cover import cover_svg
 from .specs import FIGURE_SPECS
@@ -26,28 +28,45 @@ def build_all(output_dir: Path) -> dict[str, str]:
 
     Returns a mapping of figure id to emitted filename, in spec order.
     Writes each ``.svg`` artifact plus a ``figure_registry.json`` manifest
-    recording the spec, file, and byte size of every figure.
+    in the migrated ``fig:`` accessibility format: every entry carries its
+    manuscript label, caption, and alt text beside the file metadata.
     """
 
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     emitted: dict[str, str] = {}
-    manifest: list[dict[str, object]] = []
+    entries: list[dict[str, object]] = []
     for spec in FIGURE_SPECS:
         builder = _BUILDERS[spec.figure_id]
         svg = builder()
         name = f"{spec.figure_id}.svg"
         (output_dir / name).write_text(svg, encoding="utf-8")
         emitted[spec.figure_id] = name
-        manifest.append(
+        entries.append(
             {
+                "label": spec.label,
                 "figure_id": spec.figure_id,
                 "title": spec.title,
-                "file": name,
+                "filename": name,
+                "caption": spec.description,
+                "alt": spec.description,
                 "bytes": len(svg.encode("utf-8")),
+                "source": "blue_line commitment registry and evaluator rules",
+                "generated_by": "blue_line.figures.build_all",
+                "format": "deterministic SVG",
             }
         )
-    payload = json.dumps(manifest, indent=2, sort_keys=True) + chr(10)
+    cover = next(e for e in entries if e["figure_id"] == COVER_ID)
+    registry: dict[str, object] = {
+        "schema_version": "1.5",
+        "package_version": __version__,
+        "registry_digest": registry_digest(),
+        "figures": entries,
+        # The title-page pointer repeats the cover's registered contract so
+        # the manuscript's `paper.cover.image` has something to be bound to.
+        "cover": dict(cover),
+    }
+    payload = json.dumps(registry, indent=2, sort_keys=True) + chr(10)
     (output_dir / FIGURE_REGISTRY_JSON).write_text(payload, encoding="utf-8")
     return emitted
 

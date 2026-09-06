@@ -5,8 +5,10 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import blue_line
 from blue_line.figures import FIGURE_SPECS, build_all, build_cover_png, figure_ids
 from blue_line.figures.cover import cover_svg
+from blue_line.serialization import registry_digest
 
 
 def test_at_least_three_figures():
@@ -23,11 +25,29 @@ def test_build_all_emits_svg_and_manifest(tmp_output: Path):
     for name in emitted.values():
         text = (tmp_output / name).read_text(encoding="utf-8")
         assert text.startswith("<svg")
-    manifest_path = tmp_output / "figure_registry.json"
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    assert [m["figure_id"] for m in manifest] == list(figure_ids())
-    for entry in manifest:
+    registry = json.loads(
+        (tmp_output / "figure_registry.json").read_text(encoding="utf-8")
+    )
+    assert registry["schema_version"] == "1.5"
+    assert registry["package_version"] == blue_line.__version__
+    assert registry["registry_digest"] == registry_digest()
+    figures = registry["figures"]
+    assert [f["figure_id"] for f in figures] == list(figure_ids())
+    for entry in figures:
+        assert entry["label"] == "fig:" + entry["figure_id"].replace("_", "-")
+        assert entry["filename"] == emitted[entry["figure_id"]]
         assert entry["bytes"] > 0
+        assert entry["caption"]
+        assert entry["alt"]
+
+
+def test_figure_labels_use_fig_prefix():
+    assert [s.label for s in FIGURE_SPECS] == [
+        "fig:blue-registry-map",
+        "fig:blue-verdict-paths",
+        "fig:blue-freshness-window",
+        "fig:blue-line-cover",
+    ]
 
 
 def test_build_is_deterministic(tmp_output: Path):
@@ -64,8 +84,10 @@ def test_cover_svg_is_stable():
 def test_build_all_includes_cover_in_manifest(tmp_output: Path):
     emitted = build_all(tmp_output)
     assert emitted["blue_line_cover"] == "blue_line_cover.svg"
-    manifest = json.loads((tmp_output / "figure_registry.json").read_text(encoding="utf-8"))
-    assert manifest[-1]["figure_id"] == "blue_line_cover"
+    registry = json.loads((tmp_output / "figure_registry.json").read_text(encoding="utf-8"))
+    assert registry["figures"][-1]["figure_id"] == "blue_line_cover"
+    assert registry["cover"]["filename"] == "blue_line_cover.svg"
+    assert registry["cover"]["label"] == "fig:blue-line-cover"
 
 
 def test_cover_png_build_is_deterministic(tmp_output: Path):
