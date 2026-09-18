@@ -13,4 +13,7 @@ abstract: >-
   and relationships to past work. Reads a declared file of commitments
   against a versioned registry and returns a fail-closed declaration-
   coverage verdict. Never a warranty, SLA, or proof of maintenance.
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.22833490"
 license: Apache-2.0
