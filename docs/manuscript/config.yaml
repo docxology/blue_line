@@ -3,7 +3,8 @@ paper:
   subtitle: ""
   cover:
     image: "../../output/figures/blue_line_cover.png"
-  version: "1.0"
+  version: "0.1.0"
+  date: "2026-08-29"
 authors:
   - name: "Daniel Ari Friedman"
     orcid: "0000-0001-6232-9096"
@@ -12,12 +13,21 @@ authors:
     corresponding: true
 publication:
   doi: ""
-  journal: ""
 keywords:
   - "stewardship"
   - "maintenance"
   - "line set"
   - "accountability"
+render:
+  formats:
+    pdf: true
+    html: true
+    slides: false
+    docx: false
+    epub: false
+
 metadata:
-  license: "Apache-2.0"
+  license: "CC-BY-4.0 (prose); Apache-2.0 (code)"
+  status: "living document — versioned and revisable"
+  geometry: "left=0.33in,right=0.33in,top=0.55in,bottom=0.55in"
   language: "en"
