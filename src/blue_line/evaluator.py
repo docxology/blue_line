@@ -11,18 +11,20 @@ from __future__ import annotations
 
 from datetime import date, datetime
 
-from .enums import CommitmentKind, FileStatus, StewardshipStatus
+from .enums import FileStatus, StewardshipStatus
 from .intake import intake
 from .records import (
     Commitment,
     CommitmentFile,
     CommitmentFinding,
+    EvaluationContext,
     SignalSurfaces,
     StewardshipReading,
 )
-from .registry import BLUE_COMMITMENTS, COMMITMENT_TAG_VOCABULARY
-from .serialization import registry_digest
+from .registry import BLUE_COMMITMENTS
+from .serialization import canonical_input, content_digest, registry_digest
 from .version import __version__
+from .validation import registry_shape_error, validate_registry
 
 #: Signals are stale when older than this many days at the review date.
 DEFAULT_MAX_SIGNAL_AGE_DAYS = 180
@@ -60,36 +62,7 @@ def _resolve_max_age(max_age_days: int | None) -> int | None:
 def _registry_shape_error(commitments: tuple[Commitment, ...]) -> str | None:
     """Return a blocking note when a custom registry cannot be safely scored."""
 
-    seen_ids: set[str] = set()
-    for index, commitment in enumerate(commitments):
-        if not isinstance(commitment, Commitment):
-            return f"commitment registry entry {index} is not a Commitment record"
-        if any(
-            not isinstance(value, str) or not value.strip()
-            for value in (commitment.id, commitment.title, commitment.wire)
-        ):
-            return f"commitment registry entry {index} has blank or non-text fields"
-        if commitment.id in seen_ids:
-            return f"commitment registry contains duplicate id '{commitment.id}'"
-        seen_ids.add(commitment.id)
-        if (
-            not isinstance(commitment.tags, frozenset)
-            or not commitment.tags
-            or any(not isinstance(tag, str) or not tag.strip() for tag in commitment.tags)
-        ):
-            return f"commitment '{commitment.id}' has malformed tags"
-        if (
-            not isinstance(commitment.required_signals, tuple)
-            or not commitment.required_signals
-            or any(
-                not isinstance(label, str) or not label.strip()
-                for label in commitment.required_signals
-            )
-        ):
-            return f"commitment '{commitment.id}' has malformed required signals"
-        if not isinstance(commitment.kind, CommitmentKind):
-            return f"commitment '{commitment.id}' has an invalid kind"
-    return None
+    return registry_shape_error(commitments)
 
 
 def _fresh_and_stale(
@@ -124,14 +97,14 @@ def _fresh_and_stale(
     return frozenset(fresh), frozenset(stale)
 
 
-def read_file(
+def read_with_surfaces(
     file: CommitmentFile,
     *,
     commitments: tuple[Commitment, ...] = BLUE_COMMITMENTS,
     as_of: str | date | None = None,
     max_signal_age_days: int | None = None,
     allow_unknown_tags: bool = True,
-) -> StewardshipReading:
+) -> tuple[StewardshipReading, tuple[SignalSurfaces, ...]]:
     """Read one declared commitment file against the registry.
 
     The verdict describes whether each applicable commitment's required care
@@ -141,6 +114,9 @@ def read_file(
     """
 
     max_age_days = _resolve_max_age(max_signal_age_days)
+    window = DEFAULT_MAX_SIGNAL_AGE_DAYS if max_age_days is None else max_age_days
+    if not isinstance(allow_unknown_tags, bool):
+        raise TypeError("allow_unknown_tags must be a boolean")
     shape_error = _registry_shape_error(commitments)
     if shape_error is not None:
         return StewardshipReading(
@@ -150,12 +126,19 @@ def read_file(
             read_as_of="",
             registry_version=__version__,
             registry_digest="",
-        )
+        ), ()
 
     staged, status, notes = intake(
         file, allow_unknown_tags=allow_unknown_tags
     )
     review_date = _resolve_review_date(as_of)
+    context = EvaluationContext(
+        input_digest=content_digest(canonical_input(staged)) if staged is not None else "",
+        max_signal_age_days=window,
+        allow_unknown_tags=allow_unknown_tags,
+        evaluator_version=__version__,
+        read_as_of=review_date.isoformat(),
+    )
     if staged is None:
         return StewardshipReading(
             status=status,
@@ -164,14 +147,21 @@ def read_file(
             read_as_of=review_date.isoformat(),
             registry_version=__version__,
             registry_digest=registry_digest(commitments),
-        )
+            context=context,
+        ), ()
     file = staged
     digest = registry_digest(commitments)
     by_id = {c.id: c for c in commitments}
     ordered_ids = [c.id for c in commitments]
 
     fresh, stale = _fresh_and_stale(file, review_date, max_age_days)
+    review_notes = tuple(sorted({
+        f"care signal '{signal.label}' dated {signal.noted_on} is future-dated at review and did not count as fresh"
+        for signal in file.dated_evidence
+        if signal.noted_on is not None and date.fromisoformat(signal.noted_on) > review_date
+    }))
     findings: list[CommitmentFinding] = []
+    surfaces: list[SignalSurfaces] = []
     for commitment_id in ordered_ids:
         commitment = by_id[commitment_id]
         if not (commitment.tags & file.tags):
@@ -186,6 +176,7 @@ def read_file(
                 missing.append(label)
                 if label in stale:
                     stale_missing.append(label)
+        surfaces.append(SignalSurfaces(commitment.id, tuple(present), tuple(missing), tuple(stale_missing)))
         if not missing:
             findings.append(
                 CommitmentFinding(
@@ -241,55 +232,30 @@ def read_file(
         read_as_of=review_date.isoformat(),
         registry_version=__version__,
         registry_digest=digest,
-    )
+        context=context,
+        normalized_input=staged,
+        review_notes=review_notes,
+    ), tuple(surfaces)
 
 
-def read_with_surfaces(
+def read_file(
     file: CommitmentFile,
     *,
     commitments: tuple[Commitment, ...] = BLUE_COMMITMENTS,
     as_of: str | date | None = None,
     max_signal_age_days: int | None = None,
     allow_unknown_tags: bool = True,
-) -> tuple[StewardshipReading, tuple[SignalSurfaces, ...]]:
-    """Read one file and also return per-commitment signal surfaces."""
+) -> StewardshipReading:
+    """Return the reading projection of the single staged evaluation."""
 
-    reading = read_file(
+    reading, _surfaces = read_with_surfaces(
         file,
         commitments=commitments,
         as_of=as_of,
         max_signal_age_days=max_signal_age_days,
         allow_unknown_tags=allow_unknown_tags,
     )
-    staged, _status, _notes = intake(file, allow_unknown_tags=allow_unknown_tags)
-    if staged is None or reading.registry_digest == "":
-        return reading, ()
-    review_date = _resolve_review_date(as_of)
-    max_age_days = _resolve_max_age(max_signal_age_days)
-    fresh, stale = _fresh_and_stale(staged, review_date, max_age_days)
-    by_id = {c.id: c for c in commitments}
-    surfaces: list[SignalSurfaces] = []
-    for finding in reading.findings:
-        commitment = by_id[finding.commitment_id]
-        present: list[str] = []
-        missing: list[str] = []
-        stale_missing: list[str] = []
-        for label in commitment.required_signals:
-            if label in fresh:
-                present.append(label)
-            else:
-                missing.append(label)
-                if label in stale:
-                    stale_missing.append(label)
-        surfaces.append(
-            SignalSurfaces(
-                commitment_id=commitment.id,
-                present=tuple(present),
-                missing=tuple(missing),
-                stale=tuple(stale_missing),
-            )
-        )
-    return reading, tuple(surfaces)
+    return reading
 
 
 def invariants_hold(
@@ -297,43 +263,4 @@ def invariants_hold(
 ) -> tuple[tuple[str, bool, str], ...]:
     """Run the registry invariants and return (name, passed, detail) triples."""
 
-    results: list[tuple[str, bool, str]] = []
-    ids = [c.id for c in commitments]
-    results.append(
-        (
-            "distinct_commitment_ids",
-            len(ids) == len(set(ids)),
-            ""
-            if len(ids) == len(set(ids))
-            else f"duplicates: {sorted(name for name in set(ids) if ids.count(name) > 1)}",
-        )
-    )
-    results.append(
-        (
-            "min_registry_size",
-            len(commitments) >= 6,
-            f"{len(commitments)} entries",
-        )
-    )
-    bad_tags = sorted(
-        {
-            tag
-            for c in commitments
-            for tag in c.tags
-            if tag not in COMMITMENT_TAG_VOCABULARY
-        }
-    )
-    results.append(
-        ("tags_in_vocabulary", not bad_tags, f"outside vocabulary: {bad_tags}")
-    )
-    kinds_used = {c.kind for c in commitments}
-    results.append(
-        (
-            "kind_coverage",
-            len(kinds_used) >= 3,
-            f"only {sorted(k.value for k in kinds_used)} used",
-        )
-    )
-    blank = [c.id for c in commitments if not c.wire.strip()]
-    results.append(("wires_non_blank", not blank, f"blank wires: {blank}"))
-    return tuple(results)
+    return validate_registry(commitments, canonical=True)

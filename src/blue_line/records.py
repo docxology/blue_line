@@ -60,6 +60,21 @@ class CommitmentFile:
     tags: frozenset[str] = frozenset()
     evidence: frozenset[str] = frozenset()
     dated_evidence: tuple[CareSignal, ...] = ()
+    declared_owner: str | None = None
+    declared_next_review: str | None = None
+    source_reference: str | None = None
+
+
+@dataclass(frozen=True)
+class EvaluationContext:
+    """Replay policy and normalized input identity; references verify no work."""
+
+    input_digest: str
+    max_signal_age_days: int
+    allow_unknown_tags: bool
+    evaluator_version: str
+    read_as_of: str
+    schema_version: str = "blue_line.evaluation-context/1.0"
 
 
 @dataclass(frozen=True)
@@ -99,3 +114,6 @@ class StewardshipReading:
     read_as_of: str = ""
     registry_version: str = ""
     registry_digest: str = ""
+    context: EvaluationContext | None = None
+    normalized_input: CommitmentFile | None = None
+    review_notes: tuple[str, ...] = ()

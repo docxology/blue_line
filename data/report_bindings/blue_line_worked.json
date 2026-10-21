@@ -1,0 +1,7 @@
+{
+  "envelope_digest": "f23bb1264da511c4e4021c8117a007e18f27c82f8e6d1e5548b05aa400ec2849",
+  "projection_digest": "da92cd9e53ff0b77f17ef5c32e3cf26c768a82f7f0e3a098abadf5c77ffeb709",
+  "replay_digest": "8d9b530b566528f6a85c81be3ac4fdf1c89ae9d5b9187ebbbe13b5ca01bf8762",
+  "report_path": "data/reports/blue_line_worked.json",
+  "schema_version": "blue_line.report-binding/1.0"
+}

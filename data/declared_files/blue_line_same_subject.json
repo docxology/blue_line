@@ -1,0 +1,5 @@
+{
+  "description": "witness register 0.1.0, stewardship reading at admission",
+  "tags": ["docs", "community"],
+  "evidence": ["obligation_entry", "response_log", "retirement_note", "status_note", "continuity_note", "cadence_statement", "handover_note", "run_instructions", "triage_log"]
+}

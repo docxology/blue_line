@@ -12,10 +12,14 @@ subprocess coverage in `tests/test_scripts_cli.py`.
 
 | Script | Contract | Delegates to |
 |--------|----------|--------------|
-| `build_figures.py` | Builds every declared figure plus the cover PNG into `output/figures/`; prints one line per artifact | `blue_line.figures.build_all`, `blue_line.figures.build_cover_png` |
+| `build_figures.py` | Builds declared SVGs and PNGs with raster provenance into `output/figures/`; binds PNG filenames in the figure registry | `blue_line.figures.build_all`, `blue_line.figures.build.build_png` |
 | `check_registry.py` | Runs the registry invariants; prints one PASS/FAIL line per invariant; exit 1 on any failure | `blue_line.invariants_hold` |
 | `gen_formalism_ledger.py` | Regenerates `data/formalism_claim_ledger.json` from the live package; the file is a derived projection, never edited by hand | `blue_line.ledger.write_formalism_ledger` |
-| `read_file_cli.py` | Reads one declared commitment file as a JSON object on argv (optional `--as-of YYYY-MM-DD`, default `2026-08-01`); prints the reading verdict, intake notes, per-commitment findings, and signal surfaces as JSON; exit 2 on usage or JSON errors | `blue_line.cli.read_file_main` |
+| `read_file_cli.py` | Reads a strict JSON declaration; optional `--as-of YYYY-MM-DD` defaults to current local date. Exposes effective context, findings, surfaces, replay report and declaration worklist; malformed shape is exit 2 | `blue_line.cli.read_file_main` |
+| `gen_examples.py` | Regenerates local prepared envelopes, companion reports and bindings; preserves historical subject references | `blue_line.examples.write_examples` |
+| `check_publication.py` | Checks version and retained-DOI consistency without external publication | `blue_line.publication.check_publication_main` |
+| `render_manuscript.py` | Hydrates variables and invokes PDF/HTML rendering in an explicitly supplied isolated template export | template rendering APIs |
+| `build_manuscript_bundle.py` | Packages the complete web asset tree, figures and PDF after rendering | `blue_line.publication.build_manuscript_bundle` |
 
 Do not add business, data, or plot logic to scripts; put it in
 `src/blue_line/` and delegate.

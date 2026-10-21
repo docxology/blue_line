@@ -38,12 +38,12 @@ FIGURE_SPECS: tuple[FigureSpec, ...] = (
     FigureSpec(
         "blue_freshness_window",
         "Signal freshness window",
-        "How dated care signals age into fresh, stale, and set-aside bands.",
+        "Declared freshness policy, renewal precedence, unreadable intake dates and future-date review diagnostics; historical example date only.",
     ),
     FigureSpec(
         "blue_line_cover",
         "Cover plate",
-        "The title-page plate: the registry's commitments drawn as kept strokes in the work's colour.",
+        "Symbolic strokes along tracks: a stewardship motif, encoding no registry counts or measured maintenance.",
     ),
 )
 

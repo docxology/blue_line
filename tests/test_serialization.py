@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from dataclasses import replace
+
 import json
 
 from blue_line.evaluator import read_file
@@ -57,3 +59,12 @@ def test_reading_digest_differs_for_different_verdicts():
         as_of="2026-08-01",
     )
     assert reading_digest(a) != reading_digest(b)
+def test_reading_records_effective_policy_and_input(maintained_file, review_date):
+    from blue_line.evaluator import read_file
+    a = read_file(maintained_file, as_of=review_date, max_signal_age_days=30)
+    b = read_file(maintained_file, as_of=review_date, max_signal_age_days=180)
+    assert a.context.max_signal_age_days == 30
+    assert b.context.max_signal_age_days == 180
+    assert a.context.input_digest == b.context.input_digest
+    changed = read_file(replace(maintained_file, description="other source"), as_of=review_date)
+    assert changed.context.input_digest != a.context.input_digest

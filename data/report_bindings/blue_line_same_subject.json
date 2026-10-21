@@ -1,0 +1,7 @@
+{
+  "envelope_digest": "ee2e51c984dab9ff281b1ad13eaf86138c6eadb4f54b08d2dc51954c860a5c81",
+  "projection_digest": "be0cd654cd922550f2079b9c746487ad0000bae871535a653c7f63334d8bf86e",
+  "replay_digest": "b43a1263355d0a6079f6d9347bc7475c176537b5c74f59ed26727a394c0ff2e9",
+  "report_path": "data/reports/blue_line_same_subject.json",
+  "schema_version": "blue_line.report-binding/1.0"
+}

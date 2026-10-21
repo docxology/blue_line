@@ -13,6 +13,15 @@ A reading states, first person and underclaiming:
   missing, and which aged past my freshness window.
 - I set aside input I cannot read, with notes, and I fail closed on an empty
   scan set.
+- I expose the resolved date and effective declaration policy. My undated
+  declarations count as current by policy; fresh renewals override stale history.
+  I exclude future dates at review and distinguish them from unreadable intake.
+- I derive my worklist from the same missing/stale surfaces. Owner, next-review
+  date and reference remain optional file-level declarations; I infer none.
+- I distinguish ordered registry identity, legacy coverage-projection identity,
+  normalized-input/context replay identity and subject-bound envelope identity.
+  A hash is a content identifier under ordinary SHA-256 assumptions, not proof
+  of authenticity or a mathematical impossibility of collision.
 
 ## What a Blue Line reading never claims
 
@@ -23,6 +32,8 @@ A reading states, first person and underclaiming:
 - I never verify that a declared care signal exists or supports what it
   names. I do not inspect the underlying work.
 - I never authorize an action. No verdict is permission.
+- I never treat kept commitments as compensation for another line's refusal,
+  absent consent or lack of capacity. Co-registration is not adjudication.
 - I never rank, merge, or evaluate the other line instruments (black,
   golden, white, red), and I never substitute for them.
 - I never guarantee numbers. Every digest, count, and verdict in my outputs

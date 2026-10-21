@@ -183,12 +183,12 @@
       "title": "Verdict paths"
     },
     {
-      "description": "How dated care signals age into fresh, stale, and set-aside bands.",
+      "description": "Declared freshness policy, renewal precedence, unreadable intake dates and future-date review diagnostics; historical example date only.",
       "figure_id": "blue_freshness_window",
       "title": "Signal freshness window"
     },
     {
-      "description": "The title-page plate: the registry's commitments drawn as kept strokes in the work's colour.",
+      "description": "Symbolic strokes along tracks: a stewardship motif, encoding no registry counts or measured maintenance.",
       "figure_id": "blue_line_cover",
       "title": "Cover plate"
     }
@@ -205,7 +205,7 @@
     "RELATIONSHIP",
     "SYSTEM"
   ],
-  "ledger_digest": "951d7688b50adb477e298310ad368d9173568a59f8328691999365f417e4f827",
+  "ledger_digest": "1d2088ff7f67972be8684966bff43ff3cc433ce4bc39e25b4bc599822f32797c",
   "registry_canonical": {
     "commitments": [
       {

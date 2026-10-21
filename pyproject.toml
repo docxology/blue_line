@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "blue_line"
-version = "0.1.0"
+version = "0.2.0"
 description = "A stewardship instrument for maintained commitments: systems, obligations, and relationships to past work"
 authors = [{name = "Daniel Ari Friedman", email = "daniel@activeinference.institute"}]
 requires-python = ">=3.10"

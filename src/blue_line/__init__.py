@@ -9,6 +9,7 @@ from .records import (
     Commitment,
     CommitmentFile,
     CommitmentFinding,
+    EvaluationContext,
     SignalSurfaces,
     StewardshipReading,
 )
@@ -20,6 +21,10 @@ from .serialization import (
     registry_digest,
 )
 from .version import __version__
+from .report import build_report, replay_report, stewardship_worklist
+from .serialization import context_digest, replay_digest
+from .envelope import EnvelopeEligibilityError, envelope_digest
+from .validation import validate_registry
 
 BLUE_LINE_ID = envelope_module.BLUE_LINE_ID
 ENVELOPE_SCHEMA = envelope_module.ENVELOPE_SCHEMA
@@ -37,6 +42,8 @@ __all__ = [
     "CommitmentFinding",
     "CommitmentKind",
     "ENVELOPE_SCHEMA",
+    "EnvelopeEligibilityError",
+    "EvaluationContext",
     "FIGURE_SPECS",
     "FileStatus",
     "FigureSpec",
@@ -47,14 +54,21 @@ __all__ = [
     "__version__",
     "build_all",
     "build_envelope",
+    "build_report",
     "canonical_reading",
     "canonical_registry",
+    "context_digest",
+    "envelope_digest",
     "envelope_matches_reading",
     "figure_ids",
     "invariants_hold",
     "read_file",
     "read_with_surfaces",
+    "replay_report",
+    "replay_digest",
     "reading_digest",
     "registry_digest",
     "registry_ids",
+    "stewardship_worklist",
+    "validate_registry",
 ]

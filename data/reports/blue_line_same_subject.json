@@ -1,0 +1,169 @@
+{
+  "context": {
+    "allow_unknown_tags": true,
+    "evaluator_version": "0.2.0",
+    "input_digest": "02fe383f49c1cd3318c2fad79fcd0679fca3130d73825c08323da9d3f45274fe",
+    "max_signal_age_days": 180,
+    "read_as_of": "2026-08-01",
+    "schema_version": "blue_line.evaluation-context/1.0"
+  },
+  "context_digest": "c37f3ee8834ebec695d2629244ec5bbd34ea9df2f2e514c74371a41ee202ae3a",
+  "input": {
+    "dated_evidence": [],
+    "declared_next_review": null,
+    "declared_owner": null,
+    "description": "witness register 0.1.0, stewardship reading at admission",
+    "evidence": [
+      "cadence_statement",
+      "continuity_note",
+      "handover_note",
+      "obligation_entry",
+      "response_log",
+      "retirement_note",
+      "run_instructions",
+      "status_note",
+      "triage_log"
+    ],
+    "source_reference": null,
+    "tags": [
+      "community",
+      "docs"
+    ]
+  },
+  "projection": {
+    "findings": [
+      {
+        "commitment_id": "archival-honesty",
+        "reasons": [
+          "all required care signals declared fresh at the review date"
+        ],
+        "status": "MAINTAINED"
+      },
+      {
+        "commitment_id": "continuity-notes",
+        "reasons": [
+          "all required care signals declared fresh at the review date"
+        ],
+        "status": "MAINTAINED"
+      },
+      {
+        "commitment_id": "decay-triage",
+        "reasons": [
+          "all required care signals declared fresh at the review date"
+        ],
+        "status": "MAINTAINED"
+      },
+      {
+        "commitment_id": "documented-handover",
+        "reasons": [
+          "all required care signals declared fresh at the review date"
+        ],
+        "status": "MAINTAINED"
+      },
+      {
+        "commitment_id": "honest-status-signal",
+        "reasons": [
+          "all required care signals declared fresh at the review date"
+        ],
+        "status": "MAINTAINED"
+      },
+      {
+        "commitment_id": "kept-promise-ledger",
+        "reasons": [
+          "all required care signals declared fresh at the review date"
+        ],
+        "status": "MAINTAINED"
+      },
+      {
+        "commitment_id": "response-within-window",
+        "reasons": [
+          "all required care signals declared fresh at the review date"
+        ],
+        "status": "MAINTAINED"
+      },
+      {
+        "commitment_id": "stated-care-window",
+        "reasons": [
+          "all required care signals declared fresh at the review date"
+        ],
+        "status": "MAINTAINED"
+      }
+    ],
+    "intake_notes": [],
+    "read_as_of": "2026-08-01",
+    "registry_digest": "9ae7cae1f0f7389f2f58bd7f75a2038a4c48d791166bf79c100d78f2f379e8fd",
+    "status": "MAINTAINED"
+  },
+  "projection_digest": "be0cd654cd922550f2079b9c746487ad0000bae871535a653c7f63334d8bf86e",
+  "registry_version": "0.2.0",
+  "replay_digest": "b43a1263355d0a6079f6d9347bc7475c176537b5c74f59ed26727a394c0ff2e9",
+  "review_notes": [],
+  "schema_version": "blue_line.report/1.0",
+  "surfaces": [
+    {
+      "commitment_id": "documented-handover",
+      "missing": [],
+      "present": [
+        "handover_note",
+        "run_instructions"
+      ],
+      "stale": []
+    },
+    {
+      "commitment_id": "honest-status-signal",
+      "missing": [],
+      "present": [
+        "status_note"
+      ],
+      "stale": []
+    },
+    {
+      "commitment_id": "kept-promise-ledger",
+      "missing": [],
+      "present": [
+        "obligation_entry"
+      ],
+      "stale": []
+    },
+    {
+      "commitment_id": "response-within-window",
+      "missing": [],
+      "present": [
+        "response_log"
+      ],
+      "stale": []
+    },
+    {
+      "commitment_id": "decay-triage",
+      "missing": [],
+      "present": [
+        "triage_log"
+      ],
+      "stale": []
+    },
+    {
+      "commitment_id": "archival-honesty",
+      "missing": [],
+      "present": [
+        "retirement_note"
+      ],
+      "stale": []
+    },
+    {
+      "commitment_id": "continuity-notes",
+      "missing": [],
+      "present": [
+        "continuity_note"
+      ],
+      "stale": []
+    },
+    {
+      "commitment_id": "stated-care-window",
+      "missing": [],
+      "present": [
+        "cadence_statement"
+      ],
+      "stale": []
+    }
+  ]
+}

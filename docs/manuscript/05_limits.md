@@ -10,3 +10,10 @@
   produce.
 - The witness envelopes prepared under `data/` are inputs to a separate
   admission step; until admitted they bind no other repo.
+- Kept commitments do not compensate for another line's refusal, absent consent
+  or lack of capacity. Co-registration is not aggregate adjudication.
+- The cover is symbolic artwork, encoding no registry counts or measured care.
+  PNG byte identity requires matching renderer, fonts, libraries and environment;
+  the raster provenance sidecar records an execution, not a portable runtime seal.
+- The retained DOI identifies the previous published version. A new version DOI
+  awaits Daniel's reserve-first publication step.

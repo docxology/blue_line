@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 import pytest
+from dataclasses import replace
 
 import blue_line
 from blue_line.records import CommitmentFile
@@ -96,6 +97,39 @@ def test_envelope_matches_reading_gate():
     assert not blue_line.envelope_matches_reading(blocked)
 
 
+@pytest.mark.parametrize("case", ["subject", "blocked", "registry", "date", "digest", "version", "refs"])
+def test_builder_enforces_eligibility_and_identity(case):
+    reading = read_file(_worked_file(), as_of="2026-08-01")
+    subject = "subject"
+    refs = ()
+    if case == "subject":
+        subject = " "
+    elif case == "blocked":
+        reading = read_file(CommitmentFile(""), as_of="2026-08-01")
+    elif case == "registry":
+        reading = read_file(_worked_file(), commitments=("bad",), as_of="2026-08-01")
+    elif case == "date":
+        reading = replace(reading, read_as_of="")
+    elif case == "digest":
+        reading = replace(reading, registry_digest="")
+    elif case == "version":
+        reading = replace(reading, registry_version="")
+    else:
+        refs = (" ",)
+    with pytest.raises(ValueError):
+        blue_line.build_envelope(reading, subject_id=subject, source_snapshot_refs=refs)
+
+
+@pytest.mark.parametrize("changes", [{"max_signal_age_days": -1}, {"max_signal_age_days": True},
+    {"max_signal_age_days": None}, {"allow_unknown_tags": None}, {"allow_unknown_tags": 1}])
+def test_builder_and_helper_reject_invalid_context_policy(changes):
+    reading = read_file(_worked_file(), as_of="2026-08-01")
+    reading = replace(reading, context=replace(reading.context, **changes))
+    assert not blue_line.envelope_matches_reading(reading)
+    with pytest.raises(blue_line.EnvelopeEligibilityError):
+        blue_line.build_envelope(reading, subject_id="subject")
+
+
 def test_worked_envelope_exists_and_matches_schema():
     path = ENVDIR / "blue_line_worked.json"
     assert path.exists()
@@ -138,6 +172,7 @@ def test_sibling_envelope_schema_frozen_copy():
     sibling_envdir = None
     for candidate in (
         sibling / (ENV[:0] + "env" + "elopes"),
+        REPO.parent / "witness_register" / "data" / (ENV[:0] + "env" + "elopes"),
         REPO.parents[1] / "witness_register" / "data" / (ENV[:0] + "env" + "elopes"),
     ):
         if candidate.exists():

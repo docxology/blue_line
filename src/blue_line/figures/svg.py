@@ -8,6 +8,7 @@ is sorted by accident, and no ambient time enters a figure unless passed in.
 from __future__ import annotations
 
 from ..enums import CommitmentKind
+from ..evaluator import DEFAULT_MAX_SIGNAL_AGE_DAYS, _resolve_max_age
 from ..registry import BLUE_COMMITMENTS
 
 _KIND_ORDER = (
@@ -91,13 +92,17 @@ def verdict_paths_svg() -> str:
     )
 
 
-def freshness_window_svg(as_of: str = "2026-08-01") -> str:
+def freshness_window_svg(as_of: str = "2026-08-01", *, max_signal_age_days: int | None = None) -> str:
     """Draw the fresh/stale bands against a fixed review date."""
 
+    resolved = _resolve_max_age(max_signal_age_days)
+    window = DEFAULT_MAX_SIGNAL_AGE_DAYS if resolved is None else resolved
     bands = (
-        ("0 to 180 days", "fresh"),
-        ("older than 180 days", "stale"),
-        ("unreadable or future date", "set aside at intake"),
+        ("undated declaration", "counts as current by policy"),
+        (f"0 to {window} days", "fresh"),
+        (f"older than {window} days", "raw stale; fresh renewal takes precedence"),
+        ("unreadable date", "set aside at intake"),
+        ("future date", "excluded at review with diagnostic"),
     )
     rows = [
         f'<text x="10" y="{30.0 + i * 18.0:.1f}" class="entry">'

@@ -12,8 +12,9 @@ from __future__ import annotations
 import json
 import sys
 
-from .evaluator import read_with_surfaces
-from .records import CareSignal, CommitmentFile
+from .evaluator import DEFAULT_MAX_SIGNAL_AGE_DAYS, read_with_surfaces
+from .json_adapter import DeclarationShapeError, declaration_from_json
+from .report import build_report, stewardship_worklist
 
 
 def read_file_main(argv: list[str] | None = None) -> int:
@@ -25,7 +26,7 @@ def read_file_main(argv: list[str] | None = None) -> int:
     """
 
     argv = list(sys.argv[1:] if argv is None else argv)
-    as_of = "2026-08-01"
+    as_of = None
     if "--as-of" in argv:
         index = argv.index("--as-of")
         if index + 1 >= len(argv):
@@ -44,24 +45,25 @@ def read_file_main(argv: list[str] | None = None) -> int:
     except json.JSONDecodeError as exc:
         print(f"invalid JSON: {exc}", file=sys.stderr)
         return 2
-    dated = tuple(
-        CareSignal(label=str(item.get("label")), noted_on=item.get("noted_on"))
-        if isinstance(item, dict)
-        else item
-        for item in payload.get("dated_evidence", ())
-    )
-    file = CommitmentFile(
-        description=payload.get("description", ""),
-        tags=frozenset(payload.get("tags", ())),
-        evidence=frozenset(payload.get("evidence", ())),
-        dated_evidence=dated,
-    )
-    reading, surfaces = read_with_surfaces(file, as_of=as_of)
+    try:
+        file = declaration_from_json(payload)
+        reading, surfaces = read_with_surfaces(file, as_of=as_of)
+    except (DeclarationShapeError, ValueError) as error:
+        print(f"invalid declaration: {error}", file=sys.stderr)
+        return 2
     print(
         json.dumps(
             {
+                "schema_version": "blue_line.cli/2.0",
                 "status": reading.status.value,
+                "read_as_of": reading.read_as_of,
+                "max_signal_age_days": DEFAULT_MAX_SIGNAL_AGE_DAYS,
+                "registry_version": reading.registry_version,
+                "registry_digest": reading.registry_digest,
+                "report": build_report(reading, surfaces) if reading.normalized_input is not None else None,
+                "worklist": stewardship_worklist(reading, surfaces),
                 "intake_notes": list(reading.intake_notes),
+                "review_notes": list(reading.review_notes),
                 "findings": [
                     {
                         "commitment_id": f.commitment_id,
@@ -81,6 +83,7 @@ def read_file_main(argv: list[str] | None = None) -> int:
                 ],
             },
             indent=2,
+            sort_keys=True,
         )
     )
     return 0

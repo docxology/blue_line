@@ -1,0 +1,5 @@
+{
+  "description": "the line_set reader repo, one quarter of stewardship",
+  "tags": ["code", "docs"],
+  "evidence": ["handover_note", "run_instructions", "status_note", "check_run", "check_result", "dependency_review", "downstream_list", "triage_log", "continuity_note", "review_note", "rerun_result", "cadence_statement"]
+}

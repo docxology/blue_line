@@ -8,7 +8,12 @@
   envelope directory is absent, and asserts against a frozen copy of the
   schema otherwise.
 - Figures: `uv run python scripts/build_figures.py` — local data only.
-- Rendering: PDF/HTML rendering happens through the external template
-  checkout, with this project addressed by the qualified name
+- Rendering: optional PDF/HTML rendering happens through an isolated export of
+  template `origin/main`, with this project addressed by the qualified name
   `working/blue_line` (sidecar `working/blue_line` → `projects/working/blue_line`).
   Nothing in this repo requires that checkout to exist.
+
+Run `scripts/render_manuscript.py --template-root <export>` in the export's
+environment after figure and ledger generation. The export's
+`projects/working/blue_line` link targets this checkout. `output/` remains
+local generated output; release assets and checksums preserve the rendered edition.

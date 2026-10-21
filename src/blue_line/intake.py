@@ -9,7 +9,6 @@ vacancy.
 
 from __future__ import annotations
 
-from collections.abc import Iterable
 from datetime import date
 
 from .enums import FileStatus
@@ -24,7 +23,7 @@ def _clean_labels(raw: object, field: str) -> tuple[frozenset[str], tuple[str, .
     declaration or token that had to be ignored.
     """
 
-    if isinstance(raw, str) or not isinstance(raw, Iterable):
+    if not isinstance(raw, (frozenset, set, tuple, list)):
         return frozenset(), (
             f"{field} declaration is not a collection of labels and was ignored",
         )
@@ -41,7 +40,7 @@ def _clean_labels(raw: object, field: str) -> tuple[frozenset[str], tuple[str, .
 def _clean_signals(records: object) -> tuple[tuple[CareSignal, ...], tuple[str, ...]]:
     """Normalize dated care-signal declarations, setting aside bad records."""
 
-    if isinstance(records, str) or not isinstance(records, Iterable):
+    if not isinstance(records, (tuple, list)):
         return (), ("dated care declaration is not a collection of records",)
     kept: list[CareSignal] = []
     notes: list[str] = []
@@ -54,7 +53,7 @@ def _clean_signals(records: object) -> tuple[tuple[CareSignal, ...], tuple[str, 
         if noted_on is not None:
             if isinstance(noted_on, str):
                 try:
-                    date.fromisoformat(noted_on)
+                    noted_on = date.fromisoformat(noted_on).isoformat()
                 except ValueError:
                     notes.append(
                         f"care signal '{label.strip().lower()}' has an unreadable"
@@ -114,16 +113,35 @@ def intake(
     notes.extend(evidence_notes)
     dated, dated_notes = _clean_signals(raw_file.dated_evidence)
     notes.extend(dated_notes)
+    metadata: dict[str, str | None] = {}
+    for field in ("declared_owner", "declared_next_review", "source_reference"):
+        value = getattr(raw_file, field)
+        if value is not None:
+            if not isinstance(value, str) or not value.strip():
+                notes.append(f"{field} is not nonblank text and was set aside")
+                value = None
+            else:
+                value = value.strip()
+                if field == "declared_next_review":
+                    try:
+                        value = date.fromisoformat(value).isoformat()
+                    except ValueError:
+                        notes.append(f"{field} is not an ISO date and was set aside")
+                        value = None
+        metadata[field] = value
     status = FileStatus.OUTSIDE_SCOPE if description == "" else None
     if status is not None:
-        return None, status, tuple(notes)
+        return None, status, tuple(sorted(notes))
     return (
         CommitmentFile(
             description=description,
             tags=tags & COMMITMENT_TAG_VOCABULARY,
             evidence=evidence,
-            dated_evidence=dated,
+            dated_evidence=tuple(sorted(dated, key=lambda s: (s.label, s.noted_on or ""))),
+            declared_owner=metadata["declared_owner"],
+            declared_next_review=metadata["declared_next_review"],
+            source_reference=metadata["source_reference"],
         ),
         FileStatus.OUTSIDE_SCOPE,
-        tuple(notes),
+        tuple(sorted(notes)),
     )

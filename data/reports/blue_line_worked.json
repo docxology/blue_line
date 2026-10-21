@@ -1,0 +1,205 @@
+{
+  "context": {
+    "allow_unknown_tags": true,
+    "evaluator_version": "0.2.0",
+    "input_digest": "eef77995c4bb908b143769425c552e2dc31eced68ff7cee48c09a8760dfdd562",
+    "max_signal_age_days": 180,
+    "read_as_of": "2026-08-01",
+    "schema_version": "blue_line.evaluation-context/1.0"
+  },
+  "context_digest": "9c84c98696c98b07c9d0bbff58694ec72e8aadd64f4174e124217ca9b6b84f60",
+  "input": {
+    "dated_evidence": [],
+    "declared_next_review": null,
+    "declared_owner": null,
+    "description": "the line_set reader repo, one quarter of stewardship",
+    "evidence": [
+      "cadence_statement",
+      "check_result",
+      "check_run",
+      "continuity_note",
+      "dependency_review",
+      "downstream_list",
+      "handover_note",
+      "rerun_result",
+      "review_note",
+      "run_instructions",
+      "status_note",
+      "triage_log"
+    ],
+    "source_reference": null,
+    "tags": [
+      "code",
+      "docs"
+    ]
+  },
+  "projection": {
+    "findings": [
+      {
+        "commitment_id": "archival-honesty",
+        "reasons": [
+          "required care signal 'retirement_note' was not declared fresh"
+        ],
+        "status": "NEEDS_ATTENTION"
+      },
+      {
+        "commitment_id": "continuity-notes",
+        "reasons": [
+          "all required care signals declared fresh at the review date"
+        ],
+        "status": "MAINTAINED"
+      },
+      {
+        "commitment_id": "decay-triage",
+        "reasons": [
+          "all required care signals declared fresh at the review date"
+        ],
+        "status": "MAINTAINED"
+      },
+      {
+        "commitment_id": "dependency-notice",
+        "reasons": [
+          "all required care signals declared fresh at the review date"
+        ],
+        "status": "MAINTAINED"
+      },
+      {
+        "commitment_id": "documented-handover",
+        "reasons": [
+          "all required care signals declared fresh at the review date"
+        ],
+        "status": "MAINTAINED"
+      },
+      {
+        "commitment_id": "honest-status-signal",
+        "reasons": [
+          "all required care signals declared fresh at the review date"
+        ],
+        "status": "MAINTAINED"
+      },
+      {
+        "commitment_id": "kept-promise-ledger",
+        "reasons": [
+          "required care signal 'obligation_entry' was not declared fresh"
+        ],
+        "status": "NEEDS_ATTENTION"
+      },
+      {
+        "commitment_id": "review-before-reliance",
+        "reasons": [
+          "all required care signals declared fresh at the review date"
+        ],
+        "status": "MAINTAINED"
+      },
+      {
+        "commitment_id": "stated-care-window",
+        "reasons": [
+          "all required care signals declared fresh at the review date"
+        ],
+        "status": "MAINTAINED"
+      },
+      {
+        "commitment_id": "working-verification",
+        "reasons": [
+          "all required care signals declared fresh at the review date"
+        ],
+        "status": "MAINTAINED"
+      }
+    ],
+    "intake_notes": [],
+    "read_as_of": "2026-08-01",
+    "registry_digest": "9ae7cae1f0f7389f2f58bd7f75a2038a4c48d791166bf79c100d78f2f379e8fd",
+    "status": "NEEDS_ATTENTION"
+  },
+  "projection_digest": "da92cd9e53ff0b77f17ef5c32e3cf26c768a82f7f0e3a098abadf5c77ffeb709",
+  "registry_version": "0.2.0",
+  "replay_digest": "8d9b530b566528f6a85c81be3ac4fdf1c89ae9d5b9187ebbbe13b5ca01bf8762",
+  "review_notes": [],
+  "schema_version": "blue_line.report/1.0",
+  "surfaces": [
+    {
+      "commitment_id": "documented-handover",
+      "missing": [],
+      "present": [
+        "handover_note",
+        "run_instructions"
+      ],
+      "stale": []
+    },
+    {
+      "commitment_id": "working-verification",
+      "missing": [],
+      "present": [
+        "check_run",
+        "check_result"
+      ],
+      "stale": []
+    },
+    {
+      "commitment_id": "honest-status-signal",
+      "missing": [],
+      "present": [
+        "status_note"
+      ],
+      "stale": []
+    },
+    {
+      "commitment_id": "kept-promise-ledger",
+      "missing": [
+        "obligation_entry"
+      ],
+      "present": [],
+      "stale": []
+    },
+    {
+      "commitment_id": "dependency-notice",
+      "missing": [],
+      "present": [
+        "dependency_review",
+        "downstream_list"
+      ],
+      "stale": []
+    },
+    {
+      "commitment_id": "decay-triage",
+      "missing": [],
+      "present": [
+        "triage_log"
+      ],
+      "stale": []
+    },
+    {
+      "commitment_id": "archival-honesty",
+      "missing": [
+        "retirement_note"
+      ],
+      "present": [],
+      "stale": []
+    },
+    {
+      "commitment_id": "continuity-notes",
+      "missing": [],
+      "present": [
+        "continuity_note"
+      ],
+      "stale": []
+    },
+    {
+      "commitment_id": "review-before-reliance",
+      "missing": [],
+      "present": [
+        "review_note",
+        "rerun_result"
+      ],
+      "stale": []
+    },
+    {
+      "commitment_id": "stated-care-window",
+      "missing": [],
+      "present": [
+        "cadence_statement"
+      ],
+      "stale": []
+    }
+  ]
+}

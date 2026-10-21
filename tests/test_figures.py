@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 import blue_line
+import pytest
 from blue_line.figures import FIGURE_SPECS, build_all, build_cover_png, figure_ids
 from blue_line.figures.cover import cover_svg
 from blue_line.serialization import registry_digest
@@ -99,3 +101,52 @@ def test_cover_png_build_is_deterministic(tmp_output: Path):
     build_all(tmp_output)
     second = build_cover_png(tmp_output)
     assert first_bytes == second.read_bytes()
+
+
+def test_png_build_records_renderer_and_content_provenance(tmp_output):
+    import hashlib
+    build_all(tmp_output)
+    png = build_cover_png(tmp_output)
+    receipt = json.loads((tmp_output / "blue_line_cover.provenance.json").read_text())
+    assert receipt["png_sha256"] == hashlib.sha256(png.read_bytes()).hexdigest()
+    assert receipt["svg_sha256"] == hashlib.sha256((tmp_output / "blue_line_cover.svg").read_bytes()).hexdigest()
+    assert receipt["renderer_version"]
+    assert receipt["renderer_sha256"] == hashlib.sha256(Path(receipt["renderer_path"]).read_bytes()).hexdigest()
+    assert receipt["platform"]
+
+
+def test_rasterized_figure_registry_points_at_rendered_file(tmp_output):
+    from blue_line.figures.build import build_png
+    build_all(tmp_output)
+    png = build_png(tmp_output, "blue_registry_map")
+    registry = json.loads((tmp_output / "figure_registry.json").read_text())
+    entry = next(e for e in registry["figures"] if e["figure_id"] == "blue_registry_map")
+    assert entry["filename"] == png.name
+    assert entry["bytes"] == png.stat().st_size
+
+
+@pytest.mark.parametrize("failure", ["missing_source", "bad_id", "missing_converter", "failed_converter", "absent_path"])
+def test_real_raster_failures_are_visible(tmp_output, failure):
+    from blue_line.figures.build import build_png
+    build_all(tmp_output)
+    old_path = os.environ.get("PATH")
+    old_converter = os.environ.get("BLUE_LINE_RSVG_CONVERT")
+    try:
+        if failure == "missing_converter":
+            os.environ["BLUE_LINE_RSVG_CONVERT"] = str(tmp_output / "does-not-exist")
+        elif failure == "failed_converter":
+            os.environ["BLUE_LINE_RSVG_CONVERT"] = "/usr/bin/false"
+        elif failure == "absent_path":
+            os.environ.pop("BLUE_LINE_RSVG_CONVERT", None)
+            os.environ["PATH"] = str(tmp_output)
+        target = tmp_output / "absent" if failure == "missing_source" else tmp_output
+        name = "unknown" if failure == "bad_id" else "blue_line_cover"
+        error_type = FileNotFoundError if failure == "missing_source" else ValueError if failure == "bad_id" else RuntimeError
+        with pytest.raises(error_type):
+            build_png(target, name)
+    finally:
+        for key, value in (("PATH", old_path), ("BLUE_LINE_RSVG_CONVERT", old_converter)):
+            if value is None:
+                os.environ.pop(key, None)
+            else:
+                os.environ[key] = value

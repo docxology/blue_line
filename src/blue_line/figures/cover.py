@@ -1,11 +1,9 @@
 """The cover plate: Blue Line's title-page figure.
 
-The plate states the work's thesis in one image: a registry of maintained
-commitments, each drawn as a stroke kept along a track. The four bands are
-the four kinds a commitment can take; the twelve strokes are the twelve
-registry entries. Everything is derived from fixed constants, so the plate
-is byte-for-byte stable across builds: no clock, no ambient state, no
-network.
+The plate is a symbolic motif of strokes kept along tracks. Its geometry
+does not encode registry membership, counts, kinds or measured maintenance.
+The SVG is stable for its fixed drawing constants; PNG bytes additionally
+depend on renderer, fonts and environment.
 
 The canvas matches the sibling covers' title-page proportions (a 1800x1100
 viewBox). The two labels are the only visible text; the palette is the
@@ -48,8 +46,7 @@ _TITLE_RULE_END = 352.0
 #: The horizon: the dominant stroke the register is kept against.
 _HORIZON_Y = 300.0
 
-#: The register bands. Four bands, three strokes each: the registry's
-#: twelve commitments by kind.
+#: Symbolic bands; their geometry carries no registry counts.
 _BAND_YS = (440.0, 570.0, 700.0, 830.0)
 _ROW_STEP = 34.0
 _TRACK_START = 180.0
@@ -62,7 +59,7 @@ _LENGTHS = (1480.0, 1230.0, 1350.0, 1120.0, 1440.0, 1290.0)
 
 
 def _band(index: int) -> str:
-    """One kind band: three kept strokes over their shared tracks."""
+    """Draw one symbolic band of strokes over shared tracks."""
 
     parts: list[str] = []
     for row in range(3):
@@ -116,10 +113,9 @@ def cover_svg() -> str:
         f'aria-labelledby="cover-title cover-desc">'
         f'<title id="cover-title">Blue Line: a stewardship instrument for '
         f'maintained commitments</title>'
-        f'<desc id="cover-desc">Twelve commitments in four bands, each drawn '
-        f'as a blue stroke kept along a track, under one horizon line. '
-        f'The register is the work: systems, obligations, and their kept '
-        f'state, held in trust.</desc>'
+        f'<desc id="cover-desc">Symbolic blue strokes along tracks under a '
+        f'horizon line. The motif encodes no registry counts or measured '
+        f'maintenance.</desc>'
         f'{"".join(body)}</svg>'
     )
 

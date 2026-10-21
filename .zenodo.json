@@ -12,7 +12,7 @@
   ],
   "license": "apache-2.0",
   "access_right": "open",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "keywords": [
     "stewardship",
     "maintenance",
@@ -56,5 +56,5 @@
       "scheme": "url"
     }
   ],
-  "notes": "One of the Line Set family of related works: eight instruments, their cross-line reader, and the witness register. This work's version DOI is 10.5281/zenodo.22833490; the line-set works cross-cite one another's Zenodo version DOIs."
+  "notes": "One of the Line Set family of related works: eight instruments, their cross-line reader, and the witness register. The retained DOI 10.5281/zenodo.22833490 identifies the previous published version, not this release. Daniel must reserve the new version DOI before minting; no new DOI is assigned by this software release."
 }

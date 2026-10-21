@@ -5,6 +5,9 @@ from __future__ import annotations
 import json
 import shutil
 import subprocess
+import hashlib
+import os
+import platform
 from pathlib import Path
 from ..serialization import registry_digest
 from ..version import __version__
@@ -106,20 +109,28 @@ def _rasterizer() -> str:
 def build_cover_png(output_dir: Path) -> Path:
     """Rasterize the cover plate's SVG to a PNG beside it.
 
-    Deterministic: the PNG is a pure function of the already-built SVG, so
-    two builds of the same code produce byte-identical covers.
+    Byte identity requires the same SVG, renderer, fonts and environment.
+    A sidecar records the executable, version, platform and content hashes.
     """
 
+    return build_png(output_dir, COVER_ID)
+
+
+def build_png(output_dir: Path, figure_id: str) -> Path:
     output_dir = Path(output_dir)
-    svg_path = output_dir / f"{COVER_ID}.svg"
+    if figure_id not in _BUILDERS:
+        raise ValueError(f"unknown figure id: {figure_id}")
+    svg_path = output_dir / f"{figure_id}.svg"
     if not svg_path.is_file():
         raise FileNotFoundError(
             f"{svg_path} does not exist; run build_all() before build_cover_png()."
         )
-    png_path = output_dir / f"{COVER_ID}.png"
+    png_path = output_dir / f"{figure_id}.png"
+    converter = _rasterizer()
     try:
+        version = subprocess.run([converter, "--version"], check=True, capture_output=True, text=True).stdout.strip()
         subprocess.run(
-            [_rasterizer(), str(svg_path), "--output", str(png_path)], check=True
+            [converter, str(svg_path), "--output", str(png_path)], check=True
         )
     except FileNotFoundError as error:
         raise RuntimeError(
@@ -128,7 +139,28 @@ def build_cover_png(output_dir: Path) -> Path:
         ) from error
     except subprocess.CalledProcessError as error:
         raise RuntimeError(
-            f"the rasterizer failed while rendering {COVER_ID} (exit "
+            f"the rasterizer failed while rendering {figure_id} (exit "
             f"{error.returncode}); repair librsvg and rerun the figure build"
         ) from error
+    renderer_path = Path(shutil.which(converter) or converter).resolve(strict=True)
+    receipt = {
+        "schema_version": "blue_line.raster-provenance/1.0",
+        "renderer_path": str(renderer_path),
+        "renderer_version": version,
+        "renderer_sha256": hashlib.sha256(renderer_path.read_bytes()).hexdigest(),
+        "platform": platform.platform(),
+        "environment": {key: os.environ.get(key) for key in ("LANG", "LC_ALL", "FONTCONFIG_FILE", "FONTCONFIG_PATH")},
+        "svg_sha256": hashlib.sha256(svg_path.read_bytes()).hexdigest(),
+        "png_sha256": hashlib.sha256(png_path.read_bytes()).hexdigest(),
+        "reproduction_boundary": "same renderer, libraries, fonts and environment required; no portable byte identity claimed",
+    }
+    (output_dir / f"{figure_id}.provenance.json").write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    manifest_path = output_dir / FIGURE_REGISTRY_JSON
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    entry = next(item for item in manifest["figures"] if item["figure_id"] == figure_id)
+    entry.update({"filename": png_path.name, "bytes": png_path.stat().st_size,
+                  "format": "PNG with renderer provenance", "raster_provenance": f"{figure_id}.provenance.json"})
+    if figure_id == COVER_ID:
+        manifest["cover"] = dict(entry)
+    manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return png_path

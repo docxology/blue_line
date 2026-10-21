@@ -17,6 +17,7 @@ import json
 from pathlib import Path
 
 from .enums import CommitmentKind, FileStatus, StewardshipStatus
+from .evaluator import DEFAULT_MAX_SIGNAL_AGE_DAYS
 from .figures import FIGURE_SPECS
 from .registry import BLUE_COMMITMENTS
 from .serialization import canonical_registry, registry_digest
@@ -24,7 +25,7 @@ from .serialization import canonical_registry, registry_digest
 LEDGER_SCHEMA = "blue_line.formalism-claim-ledger/1.0"
 
 
-def build_formalism_ledger() -> dict:
+def build_formalism_ledger() -> dict[str, object]:
     """Build the ledger payload from the live package, digest included."""
 
     registry_digest_value = registry_digest()
@@ -39,7 +40,7 @@ def build_formalism_ledger() -> dict:
         }
         for c in BLUE_COMMITMENTS
     ]
-    payload = {
+    payload: dict[str, object] = {
         "schema": LEDGER_SCHEMA,
         "registry_digest": registry_digest_value,
         "registry_canonical": canonical_registry(),
@@ -69,4 +70,11 @@ def write_formalism_ledger(repo: Path) -> Path:
     payload = build_formalism_ledger()
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(payload, indent=2, sort_keys=True) + chr(10), encoding="utf-8")
+    variables = Path(repo) / "output" / "data" / "manuscript_variables.json"
+    variables.parent.mkdir(parents=True, exist_ok=True)
+    variables.write_text(json.dumps({
+        "freshness_window_default_days": DEFAULT_MAX_SIGNAL_AGE_DAYS,
+        "registry_count": len(BLUE_COMMITMENTS),
+        "registry_digest": registry_digest(),
+    }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return out

@@ -7,7 +7,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from blue_line.figures import build_all, build_cover_png, figure_ids  # noqa: E402
+from blue_line.figures import build_all, figure_ids  # noqa: E402
+from blue_line.figures.build import build_png  # noqa: E402
 
 
 def main() -> int:
@@ -15,8 +16,8 @@ def main() -> int:
     emitted = build_all(out_dir)
     for figure_id in figure_ids():
         print(f"built {figure_id} -> {out_dir / emitted[figure_id]}")
-    cover_png = build_cover_png(out_dir)
-    print(f"built {cover_png.name} -> {cover_png}")
+        png = build_png(out_dir, figure_id)
+        print(f"built {png.name} -> {png}")
     print(f"built {len(emitted)} figures")
     return 0
 
