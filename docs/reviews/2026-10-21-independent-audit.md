@@ -23,5 +23,15 @@ intake transcript, previous DOI and error-severity type-check boundaries.
 Audit task ID:
 `node:delegated-task:command%3Amcp%3Ace05f7af-2b27-4aa0-957f-965bde40aeb4%3Adelegate-task%3Ablue-line-v020-pretag-audit-20261021-round1`.
 
-Focused independent recheck of the corrected complete candidate is pending;
-tagging remains blocked until that receipt is recorded.
+Focused independent recheck: **APPROVE**, with no confirmed blocking findings,
+for corrected candidate `6b8b2ae7e600f6095e8a921a4cf5d98da97dea0f`.
+
+The fresh read-only recheck independently verified all corrections, every
+artifact/source checksum, prepared replay and bindings, complete ZIP membership,
+CRC and member/extracted bytes, local asset references, additional CLI/renewal/
+worklist/mutation probes, cache-free lint, whitespace and updated visual captures.
+It did not rerun producer tests or change any artifact or Git state. Final commit
+gates and remote publication remain the releasing agent's responsibility.
+
+Recheck task ID:
+`node:delegated-task:command%3Amcp%3Ace05f7af-2b27-4aa0-957f-965bde40aeb4%3Adelegate-task%3Ablue-line-v020-pretag-audit-20261021-round2`.

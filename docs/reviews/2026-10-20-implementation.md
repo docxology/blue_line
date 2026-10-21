@@ -6,6 +6,10 @@ packet wrapper's single appended newline. The packet's counterexamples were
 proposals; the executions below are this run's evidence. All items are resolved
 within blue_line. No sibling was modified.
 
+Every item below, including the confirmed independent-audit corrections, is
+implemented in commit `6b8b2ae7e600f6095e8a921a4cf5d98da97dea0f`. The release follow-up
+commit records independent approval and the final verification disposition.
+
 | Item | Disposition and implementation | Executed regression evidence |
 | --- | --- | --- |
 | BL-01 | Done: current local date by default, explicit historical replay, resolved date/window/version/digest in every successful CLI output. | New boundary tests failed on absent output identity; explicit historical dates produced the proposed different verdicts. Inclusive freshness-boundary tests already passed and retain that behavior. |
