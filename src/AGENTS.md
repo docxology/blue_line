@@ -1,16 +1,18 @@
 # AGENTS.md — `blue_line/src`
 
-> Status: SKELETON (auto-generated 2026-08-30, fleet pass in progress).
-> Contents below must be verified and expanded by a lane agent before this
-> stub is considered accurate.
-
 ## Scope
-- Local-only path under `projects/ongoing/` — matched by the root
-  `.gitignore` rule `projects/*` and never committed.
-- Parent standard: see `/Volumes/external_drive/Git/template/projects/ongoing/AGENTS.md`.
+- Committed source tree of this standalone repo (GitHub `docxology/blue_line`).
+  Nothing here is a local-only path: no `.gitignore` rule excludes `src/`, and
+  no sibling project is required to run anything in this repo.
+- Repo-wide contract: root `AGENTS.md`.
 
 ## Layout
-- (to be filled: list child folders/files and their roles)
+- `blue_line/` — runtime package; module inventory in `blue_line/README.md`.
+- `blue_line/figures/` — deterministic figure builders; notes in
+  `blue_line/figures/AGENTS.md`.
 
 ## Gotchas
-- (to be filled)
+- Runtime code is pure standard library. Dev dependencies (pytest, pytest-cov,
+  ruff) are declared in `pyproject.toml` under `[dependency-groups]`.
+- Scripts hold no logic; their command bodies live in `blue_line/cli.py` and
+  are tested directly.

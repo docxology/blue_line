@@ -1,16 +1,18 @@
 # AGENTS.md — `blue_line/docs`
 
-> Status: SKELETON (auto-generated 2026-08-30, fleet pass in progress).
-> Contents below must be verified and expanded by a lane agent before this
-> stub is considered accurate.
-
 ## Scope
-- Local-only path under `projects/ongoing/` — matched by the root
-  `.gitignore` rule `projects/*` and never committed.
-- Parent standard: see `/Volumes/external_drive/Git/template/projects/ongoing/AGENTS.md`.
+- Committed documentation for this standalone repo (GitHub `docxology/blue_line`);
+  no dependency on a sibling checkout or a local-only path.
+- `claim_boundaries.md` is the register of record for what may and may not be
+  claimed; file inventory in `README.md`.
 
 ## Layout
-- (to be filled: list child folders/files and their roles)
+- Contract and procedure docs at this level (`reports.md`, `development.md`,
+  `publication.md`, `extensibility.md`, `claim_boundaries.md`), plus
+  `manuscript/`, `releases/` and `reviews/`.
 
 ## Gotchas
-- (to be filled)
+- Documented commands must stay runnable: they are exercised by the suite
+  (`scripts/*.py`, `uv run pytest`, `uv run ruff check src tests scripts`).
+- Do not hardcode derived numbers or digests in prose; they are generated from
+  the live package and checked by test.
