@@ -2,6 +2,10 @@
 
 ## Setup
 
+The figure, registry and ledger checks rasterize through `rsvg-convert`, which
+is not a Python dependency: install librsvg (`apt-get install librsvg2-bin` on
+Debian/Ubuntu, `brew install librsvg` on macOS) so that it is on `PATH`.
+
 ```bash
 uv sync
 uv run pytest tests/ --cov=src --cov-report=term
