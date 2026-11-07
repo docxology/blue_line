@@ -3,7 +3,7 @@
 A stewardship instrument for maintained commitments: systems, obligations,
 and relationships to past work.
 
-`blue_line` is the blue colour in the docxology line set. It answers one
+`blue_line` is the blue color in the docxology line set. It answers one
 question — **What must I keep working?** — by reading a declared file of
 commitments against a versioned registry and returning a verdict that
 describes declaration coverage of care signals at a review date.
@@ -49,11 +49,13 @@ with zero sibling line projects present; sibling absence is an explicit
 NOT_INSTALLED outcome, never an exception.
 
 The CLI deliberately resolves an omitted `--as-of` to the current local date.
-Pass `--as-of YYYY-MM-DD` for replay. Every successful output exposes the resolved
-date, effective freshness window and registry identity. Invalid JSON syntax or
-shape exits with code 2; a well-formed unmatched declaration returns OUTSIDE_SCOPE.
+Pass `--as-of YYYY-MM-DD` for replay; only that canonical calendar-date spelling
+is accepted. Invalid or noncanonical dates exit with code 2 and stderr only.
+Every successful output exposes the resolved date, effective freshness window
+and registry identity. Invalid JSON syntax or shape exits with code 2; a
+well-formed unmatched declaration returns OUTSIDE_SCOPE.
 Labels and dated records must be JSON arrays, never objects, strings or null
-containers. Optional `declared_owner`, `declared_next_review` (ISO date) and
+containers. Optional `declared_owner`, `declared_next_review` (`YYYY-MM-DD`) and
 `source_reference` describe file-level declarations, not verified obligations.
 
 See [the report contract](docs/reports.md) for projection versus replay identity,
@@ -62,9 +64,11 @@ schema migration, intake-container policy and envelope eligibility, and
 
 ## The Line Set
 
-This work is one of ten in the Line Set family — eight instruments, their
-cross-line reader, and the witness register that co-registers their report
-envelopes without aggregation:
+This work is one of ten declared works in the Line Set family — eight instruments,
+their cross-line reader, and the witness register that co-registers their report
+envelopes without aggregation. This roster identifies the family, not a guarantee
+of public or local source availability. Individual sources may be optional or
+access-controlled; an unavailable source remains explicit, never a substitute:
 
 - [Black Line](https://github.com/docxology/black_line) — the practice registry of realized craft
 - [Golden Line](https://github.com/docxology/golden_line) — the aspiration and horizon registry

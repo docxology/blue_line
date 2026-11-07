@@ -1,13 +1,13 @@
 {
   "context": {
     "allow_unknown_tags": true,
-    "evaluator_version": "0.2.0",
+    "evaluator_version": "0.3.0",
     "input_digest": "eef77995c4bb908b143769425c552e2dc31eced68ff7cee48c09a8760dfdd562",
     "max_signal_age_days": 180,
     "read_as_of": "2026-08-01",
     "schema_version": "blue_line.evaluation-context/1.0"
   },
-  "context_digest": "9c84c98696c98b07c9d0bbff58694ec72e8aadd64f4174e124217ca9b6b84f60",
+  "context_digest": "a7e064aa942a7207a41034574ac2bdcb5f4ac6e897ae6290d3b4f807c496f764",
   "input": {
     "dated_evidence": [],
     "declared_next_review": null,
@@ -112,8 +112,8 @@
     "status": "NEEDS_ATTENTION"
   },
   "projection_digest": "da92cd9e53ff0b77f17ef5c32e3cf26c768a82f7f0e3a098abadf5c77ffeb709",
-  "registry_version": "0.2.0",
-  "replay_digest": "8d9b530b566528f6a85c81be3ac4fdf1c89ae9d5b9187ebbbe13b5ca01bf8762",
+  "registry_version": "0.3.0",
+  "replay_digest": "2d22c669524e5746a5b694dfba6b8073a8320f966f123357e093fdb311be3fc9",
   "review_notes": [],
   "schema_version": "blue_line.report/1.0",
   "surfaces": [

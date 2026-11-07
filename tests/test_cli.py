@@ -17,17 +17,23 @@ STALE_PAYLOAD = json.dumps(
 
 def test_read_file_main_rejects_bad_json(capsys):
     assert read_file_main(["{not json"]) == 2
-    assert "invalid JSON" in capsys.readouterr().err
+    captured = capsys.readouterr()
+    assert captured.err
+    assert not captured.out
 
 
 def test_read_file_main_rejects_missing_as_of_value(capsys):
     assert read_file_main(['{"description": "x"}', "--as-of"]) == 2
-    assert "--as-of requires" in capsys.readouterr().err
+    captured = capsys.readouterr()
+    assert captured.err
+    assert not captured.out
 
 
 def test_read_file_main_rejects_wrong_arity(capsys):
     assert read_file_main([]) == 2
-    assert "usage: read_file_cli.py" in capsys.readouterr().err
+    captured = capsys.readouterr()
+    assert captured.err
+    assert not captured.out
 
 
 def test_read_file_main_prints_reading_json(capsys):

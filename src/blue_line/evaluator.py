@@ -39,7 +39,7 @@ def _resolve_review_date(as_of: str | date | None) -> date:
         try:
             return date.fromisoformat(as_of)
         except ValueError as exc:
-            raise ValueError("as_of must be an ISO date in YYYY-MM-DD form") from exc
+            raise ValueError("as_of must be an ISO date string") from exc
     if isinstance(as_of, datetime):
         raise TypeError("as_of must be None, an ISO date string, or a datetime.date")
     if isinstance(as_of, date):
@@ -57,12 +57,6 @@ def _resolve_max_age(max_age_days: int | None) -> int | None:
     if max_age_days < 0:
         raise ValueError("max_signal_age_days must be non-negative")
     return max_age_days
-
-
-def _registry_shape_error(commitments: tuple[Commitment, ...]) -> str | None:
-    """Return a blocking note when a custom registry cannot be safely scored."""
-
-    return registry_shape_error(commitments)
 
 
 def _fresh_and_stale(
@@ -117,7 +111,7 @@ def read_with_surfaces(
     window = DEFAULT_MAX_SIGNAL_AGE_DAYS if max_age_days is None else max_age_days
     if not isinstance(allow_unknown_tags, bool):
         raise TypeError("allow_unknown_tags must be a boolean")
-    shape_error = _registry_shape_error(commitments)
+    shape_error = registry_shape_error(commitments)
     if shape_error is not None:
         return StewardshipReading(
             status=FileStatus.OUTSIDE_SCOPE,
@@ -128,12 +122,12 @@ def read_with_surfaces(
             registry_digest="",
         ), ()
 
-    staged, status, notes = intake(
-        file, allow_unknown_tags=allow_unknown_tags
-    )
+    staged, status, notes = intake(file, allow_unknown_tags=allow_unknown_tags)
     review_date = _resolve_review_date(as_of)
     context = EvaluationContext(
-        input_digest=content_digest(canonical_input(staged)) if staged is not None else "",
+        input_digest=content_digest(canonical_input(staged))
+        if staged is not None
+        else "",
         max_signal_age_days=window,
         allow_unknown_tags=allow_unknown_tags,
         evaluator_version=__version__,
@@ -155,11 +149,16 @@ def read_with_surfaces(
     ordered_ids = [c.id for c in commitments]
 
     fresh, stale = _fresh_and_stale(file, review_date, max_age_days)
-    review_notes = tuple(sorted({
-        f"care signal '{signal.label}' dated {signal.noted_on} is future-dated at review and did not count as fresh"
-        for signal in file.dated_evidence
-        if signal.noted_on is not None and date.fromisoformat(signal.noted_on) > review_date
-    }))
+    review_notes = tuple(
+        sorted(
+            {
+                f"care signal '{signal.label}' dated {signal.noted_on} is future-dated at review and did not count as fresh"
+                for signal in file.dated_evidence
+                if signal.noted_on is not None
+                and date.fromisoformat(signal.noted_on) > review_date
+            }
+        )
+    )
     findings: list[CommitmentFinding] = []
     surfaces: list[SignalSurfaces] = []
     for commitment_id in ordered_ids:
@@ -176,7 +175,11 @@ def read_with_surfaces(
                 missing.append(label)
                 if label in stale:
                     stale_missing.append(label)
-        surfaces.append(SignalSurfaces(commitment.id, tuple(present), tuple(missing), tuple(stale_missing)))
+        surfaces.append(
+            SignalSurfaces(
+                commitment.id, tuple(present), tuple(missing), tuple(stale_missing)
+            )
+        )
         if not missing:
             findings.append(
                 CommitmentFinding(

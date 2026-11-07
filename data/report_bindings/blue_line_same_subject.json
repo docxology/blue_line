@@ -1,7 +1,7 @@
 {
-  "envelope_digest": "ee2e51c984dab9ff281b1ad13eaf86138c6eadb4f54b08d2dc51954c860a5c81",
+  "envelope_digest": "394682530bc74d1b57e4bf2ae32c089d23d922cf88075bd21431639e7322f7cf",
   "projection_digest": "be0cd654cd922550f2079b9c746487ad0000bae871535a653c7f63334d8bf86e",
-  "replay_digest": "b43a1263355d0a6079f6d9347bc7475c176537b5c74f59ed26727a394c0ff2e9",
+  "replay_digest": "6e70e7d2488f06225c1c494d706cecf045d472ad8f29c1d237dfabeb22ed21e5",
   "report_path": "data/reports/blue_line_same_subject.json",
   "schema_version": "blue_line.report-binding/1.0"
 }

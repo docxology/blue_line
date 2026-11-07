@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.3.0 — 2026-11-06
+
+- Generate prepared envelopes, reports and bindings from declarations and explicit
+  example contexts, not previous output files. Missing or corrupted outputs can
+  be rebuilt without changing subject, review date or source-reference inputs.
+- Remove the obsolete registry-shape forwarding helper; use the shared validator.
+- Keep live figure/provenance checks instead of cover wording and incidental
+  figure-count assertions.
+
+- Require canonical `YYYY-MM-DD` calendar dates for CLI `--as-of`; invalid and
+  noncanonical values return usage error 2 with stderr only. Preserve broader
+  library ISO-date normalization and existing freshness and finite-input policy.
+- Add direct and executable CLI date-boundary regressions and library
+  normalization controls; remove wording and source-text assertions.
+- Use American English in maintained prose; distinguish the declared family
+  roster from source availability, apply nonclaims to every other instrument,
+  and document actual envelope/release roles without stale test counts.
+- Correct the cover's local color-constant documentation without changing art.
+- Refresh the generated development lock for the declared Python requirement.
+- Exercise generator CLIs and publication checks in isolated project copies,
+  checking emitted artifacts against native records and rejecting mismatched
+  publication metadata without writing into the source checkout.
+
 ## 0.2.0 — 2026-10-21
 
 - Resolve the CLI review date deliberately and emit effective policy and registry

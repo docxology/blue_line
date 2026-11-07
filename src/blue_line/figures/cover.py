@@ -7,10 +7,9 @@ depend on renderer, fonts and environment.
 
 The canvas matches the sibling covers' title-page proportions (a 1800x1100
 viewBox). The two labels are the only visible text; the palette is the
-house cream canvas carried by the Line Set figure modules, with the blue
-stroke taken from the set's muted stand-in for this work's colour
-(``line_set`` palette ``COVER_STROKE["blue"]``), since Blue Line publishes
-no colour-named stroke constant of its own.
+house cream canvas carried by the Line Set figure modules. The local ``BLUE``
+constant defines this work's stroke and matches the set's muted
+``COVER_STROKE["blue"]`` palette value; no sibling import is required.
 """
 
 from __future__ import annotations
@@ -112,11 +111,11 @@ def cover_svg() -> str:
         f'height="{HEIGHT}" viewBox="0 0 {WIDTH} {HEIGHT}" role="img" '
         f'aria-labelledby="cover-title cover-desc">'
         f'<title id="cover-title">Blue Line: a stewardship instrument for '
-        f'maintained commitments</title>'
+        f"maintained commitments</title>"
         f'<desc id="cover-desc">Symbolic blue strokes along tracks under a '
-        f'horizon line. The motif encodes no registry counts or measured '
-        f'maintenance.</desc>'
-        f'{"".join(body)}</svg>'
+        f"horizon line. The motif encodes no registry counts or measured "
+        f"maintenance.</desc>"
+        f"{''.join(body)}</svg>"
     )
 
 

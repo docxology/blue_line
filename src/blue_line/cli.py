@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import sys
+from datetime import date
 
 from .evaluator import DEFAULT_MAX_SIGNAL_AGE_DAYS, read_with_surfaces
 from .json_adapter import DeclarationShapeError, declaration_from_json
@@ -33,6 +34,19 @@ def read_file_main(argv: list[str] | None = None) -> int:
             print("--as-of requires a YYYY-MM-DD value", file=sys.stderr)
             return 2
         as_of = argv[index + 1]
+        try:
+            parsed = date.fromisoformat(as_of)
+        except ValueError:
+            print(
+                "--as-of requires a valid calendar date in YYYY-MM-DD form",
+                file=sys.stderr,
+            )
+            return 2
+        if parsed.isoformat() != as_of:
+            print(
+                "--as-of requires a calendar date in YYYY-MM-DD form", file=sys.stderr
+            )
+            return 2
         argv = argv[:index] + argv[index + 2 :]
     if len(argv) != 1:
         print(
@@ -60,7 +74,9 @@ def read_file_main(argv: list[str] | None = None) -> int:
                 "max_signal_age_days": DEFAULT_MAX_SIGNAL_AGE_DAYS,
                 "registry_version": reading.registry_version,
                 "registry_digest": reading.registry_digest,
-                "report": build_report(reading, surfaces) if reading.normalized_input is not None else None,
+                "report": build_report(reading, surfaces)
+                if reading.normalized_input is not None
+                else None,
                 "worklist": stewardship_worklist(reading, surfaces),
                 "intake_notes": list(reading.intake_notes),
                 "review_notes": list(reading.review_notes),

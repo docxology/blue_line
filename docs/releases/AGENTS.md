@@ -1,14 +1,16 @@
 # AGENTS.md — `blue_line/docs/releases`
 
-> Status: SKELETON (auto-generated 2026-08-30, fleet pass in progress).
-> Contents below must be verified and expanded by a lane agent before this
-> stub is considered accurate.
-
 ## Scope
-- Repository-wide policy for template projects is maintained in the template repository, not restated here.
+- Historical release packets, not a live report of the current checkout.
+  Current changes belong in the root `CHANGELOG.md` under Unreleased.
 
 ## Layout
-- (to be filled: list child folders/files and their roles)
+- `v0.1.0.md` and `v0.2.0.md` retain the evidence recorded for those releases.
+- `v0.2.0-artifacts.json` retains the versioned artifact manifest.
+- `README.md` explains the release-note convention.
 
 ## Gotchas
-- (to be filled)
+- Preserve published gate results, counts, source identities and checksums.
+  Do not regenerate these packets when refreshing current examples or figures.
+- A new release packet requires actual run evidence under `../publication.md`;
+  never infer a source commit, publication, or DOI.

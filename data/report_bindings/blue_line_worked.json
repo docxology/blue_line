@@ -1,7 +1,7 @@
 {
-  "envelope_digest": "f23bb1264da511c4e4021c8117a007e18f27c82f8e6d1e5548b05aa400ec2849",
+  "envelope_digest": "9354c2a10e6806cad4f23d96bc2e87500ded4310bf15ffdd022c733d35b4d085",
   "projection_digest": "da92cd9e53ff0b77f17ef5c32e3cf26c768a82f7f0e3a098abadf5c77ffeb709",
-  "replay_digest": "8d9b530b566528f6a85c81be3ac4fdf1c89ae9d5b9187ebbbe13b5ca01bf8762",
+  "replay_digest": "2d22c669524e5746a5b694dfba6b8073a8320f966f123357e093fdb311be3fc9",
   "report_path": "data/reports/blue_line_worked.json",
   "schema_version": "blue_line.report-binding/1.0"
 }

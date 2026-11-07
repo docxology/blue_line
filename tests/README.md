@@ -17,5 +17,5 @@ sets the test paths, verbose output and the coverage floor.
 - Scripts are additionally covered as subprocesses against real data, so a
   documented command that stops working fails the suite.
 
-Coverage of `src` is enforced at the floor in `[tool.coverage.report]`; the
-skeleton warnings in this repo's docs were replaced by the current inventory.
+Coverage of `src` is enforced at the floor in `[tool.coverage.report]`.
+Documentation recipes are checked through real native runs, not prose matching.

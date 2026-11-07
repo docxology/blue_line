@@ -34,8 +34,7 @@ A reading states, first person and underclaiming:
 - I never authorize an action. No verdict is permission.
 - I never treat kept commitments as compensation for another line's refusal,
   absent consent or lack of capacity. Co-registration is not adjudication.
-- I never rank, merge, or evaluate the other line instruments (black,
-  golden, white, red), and I never substitute for them.
+- I never rank, merge, evaluate, or substitute for any other line instrument.
 - I never guarantee numbers. Every digest, count, and verdict in my outputs
   is derived at run time from the registry and the declared file.
 

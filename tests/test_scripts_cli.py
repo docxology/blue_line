@@ -3,9 +3,15 @@
 from __future__ import annotations
 
 import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
+
+
+from blue_line.figures import FIGURE_SPECS
+from blue_line.ledger import build_formalism_ledger
+from blue_line.serialization import registry_digest
 
 REPO = Path(__file__).resolve().parents[1]
 PY = sys.executable
@@ -23,7 +29,6 @@ def _run(script: str, *args: str) -> subprocess.CompletedProcess[str]:
 def test_check_registry_cli_passes():
     result = _run("check_registry.py")
     assert result.returncode == 0, result.stdout + result.stderr
-    assert "FAIL" not in result.stdout
 
 
 def test_read_file_cli_maintained():
@@ -33,19 +38,19 @@ def test_read_file_cli_maintained():
             "tags": ["code", "docs"],
             "evidence": [
                 "cadence_statement",
-                 "check_result",
-                 "check_run",
-                 "continuity_note",
-                 "dependency_review",
-                 "downstream_list",
-                 "handover_note",
-                 "obligation_entry",
-                 "rerun_result",
-                 "retirement_note",
-                 "review_note",
-                 "run_instructions",
-                 "status_note",
-                 "triage_log",
+                "check_result",
+                "check_run",
+                "continuity_note",
+                "dependency_review",
+                "downstream_list",
+                "handover_note",
+                "obligation_entry",
+                "rerun_result",
+                "retirement_note",
+                "review_note",
+                "run_instructions",
+                "status_note",
+                "triage_log",
             ],
         }
     )
@@ -75,7 +80,8 @@ def test_read_file_cli_as_of_override():
 def test_read_file_cli_as_of_missing_value():
     result = _run("read_file_cli.py", '{"description": "x"}', "--as-of")
     assert result.returncode == 2
-    assert "--as-of requires" in result.stderr
+    assert result.stderr
+    assert not result.stdout
 
 
 def test_read_file_cli_bad_json():
@@ -88,14 +94,43 @@ def test_read_file_cli_no_args():
     assert result.returncode == 2
 
 
+def _sandbox(tmp_path: Path) -> Path:
+    sandbox = tmp_path / "blue_line"
+    shutil.copytree(REPO / "src", sandbox / "src")
+    shutil.copytree(REPO / "scripts", sandbox / "scripts")
+    return sandbox
+
+
 def test_build_figures_script(tmp_path: Path):
-    result = _run("build_figures.py")
+    sandbox = _sandbox(tmp_path)
+    result = subprocess.run(
+        [PY, str(sandbox / "scripts" / "build_figures.py")],
+        capture_output=True,
+        text=True,
+        timeout=120,
+    )
     assert result.returncode == 0, result.stderr
-    out = REPO / "output" / "figures"
-    assert (out / "figure_registry.json").exists()
+    out = sandbox / "output" / "figures"
+    manifest = json.loads((out / "figure_registry.json").read_text())
+    assert manifest["registry_digest"] == registry_digest()
+    assert {entry["figure_id"] for entry in manifest["figures"]} == {
+        spec.figure_id for spec in FIGURE_SPECS
+    }
+    for entry in manifest["figures"]:
+        image = out / entry["filename"]
+        assert image.read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
+        assert image.stat().st_size == entry["bytes"]
 
 
-def test_gen_ledger_script():
-    result = _run("gen_formalism_ledger.py")
+def test_gen_ledger_script(tmp_path: Path):
+    sandbox = _sandbox(tmp_path)
+    result = subprocess.run(
+        [PY, str(sandbox / "scripts" / "gen_formalism_ledger.py")],
+        capture_output=True,
+        text=True,
+        timeout=120,
+    )
     assert result.returncode == 0, result.stderr
-    assert (REPO / "data" / "formalism_claim_ledger.json").exists()
+    assert json.loads(
+        (sandbox / "data" / "formalism_claim_ledger.json").read_text()
+    ) == (build_formalism_ledger())

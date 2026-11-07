@@ -9,7 +9,7 @@ reader.
 
 - `data/binding_declaration.json` — the exact `LineEntry` kwargs a
   maintainer appends to `line_set/src/line_set/registry.py`: id `blue_line`,
-  colour `blue`, question "What must I keep working?", `opus_stage=None`
+  color `blue`, question "What must I keep working?", `opus_stage=None`
   (stageless by design — the four classical stages are allocated), and
   `working_position=None` (assigned at admission, must extend 1..N
   contiguously).

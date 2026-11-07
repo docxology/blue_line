@@ -12,16 +12,18 @@ from .report import build_report
 
 
 def write_examples(repo: Path) -> tuple[Path, ...]:
+    """Derive outputs only from declarations and explicit example contexts."""
+    contexts = json.loads((repo / "data/example_contexts.json").read_text(encoding="utf-8"))
     emitted: list[Path] = []
     for source in sorted((repo / "data" / "declared_files").glob("*.json")):
         target = repo / "data" / "envelopes" / source.name
-        previous = json.loads(target.read_text(encoding="utf-8"))
+        context = contexts[source.name]
         reading, surfaces = read_with_surfaces(
             declaration_from_json(json.loads(source.read_text(encoding="utf-8"))),
-            as_of=previous["review_date"],
+            as_of=context["review_date"],
         )
-        envelope = build_envelope(reading, subject_id=previous["subject_id"],
-                                  source_snapshot_refs=tuple(previous["source_snapshot_refs"]))
+        envelope = build_envelope(reading, subject_id=context["subject_id"],
+                                  source_snapshot_refs=tuple(context["source_snapshot_refs"]))
         report = build_report(reading, surfaces)
         binding = {
             "schema_version": "blue_line.report-binding/1.0",

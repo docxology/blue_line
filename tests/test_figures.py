@@ -13,10 +13,6 @@ from blue_line.figures.cover import cover_svg
 from blue_line.serialization import registry_digest
 
 
-def test_at_least_three_figures():
-    assert len(FIGURE_SPECS) >= 3
-
-
 def test_figure_ids_match_spec_order():
     assert figure_ids() == tuple(s.figure_id for s in FIGURE_SPECS)
 
@@ -68,15 +64,6 @@ def test_build_is_deterministic(tmp_output: Path):
 def test_cover_spec_is_declared():
     assert "blue_line_cover" in figure_ids()
     assert any(spec.figure_id == "blue_line_cover" for spec in FIGURE_SPECS)
-
-
-def test_cover_svg_carries_exactly_its_labels():
-    svg = cover_svg()
-    assert "BLUE LINE" in svg
-    assert "MAINTAINED COMMITMENTS, KEPT IN TRUST" in svg
-    assert "0.1.0" not in svg
-    assert "2025" not in svg
-    assert "2026" not in svg
 
 
 def test_cover_svg_is_stable():

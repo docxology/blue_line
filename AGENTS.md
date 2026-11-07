@@ -2,7 +2,7 @@
 
 ## Identity
 
-`blue_line` is a standalone private repo, the blue colour in the docxology
+`blue_line` is a standalone private repo, the blue color in the docxology
 line set. Question: **What must I keep working?** Job: stewardship of
 maintained commitments. It must never become a warranty, SLA, availability
 guarantee, or proof of maintenance. Opus stage: None (stageless by design;
@@ -43,7 +43,7 @@ uv run pytest tests/test_formalism_claim_ledger.py
 
 - `src/blue_line/` — registry, intake, evaluator, serialization, envelope,
   figures (runtime pure-stdlib package)
-- `tests/` — 87 tests incl. no-mocks gate, negative controls, standalone
+- `tests/` — behavioral regressions, no-mocks gate, negative controls, standalone
   envelope-schema checks
 - `scripts/` — thin CLIs (build_figures, check_registry, read_file_cli,
   gen_formalism_ledger)

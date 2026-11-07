@@ -3,9 +3,11 @@
 The CLI's `blue_line.cli/2.0` object retains verdict, findings and surfaces and
 adds resolved date, effective window, registry identity, review diagnostics,
 companion report and worklist. Its omitted-date policy is current local date;
-historical examples always pass a date explicitly. The library still accepts
-an explicit date or defaults to the current local date. The date and window are
-resolved once, and one normalized declaration produces findings and surfaces.
+historical examples always pass a date explicitly. The library accepts a
+`datetime.date` or an ISO date string, including basic/week spellings, or defaults
+to the current local date; `datetime.datetime` is not a review date. The date and
+window are resolved once, and one normalized declaration produces findings and
+surfaces.
 
 JSON input requires an object. Label fields require arrays of nonblank text;
 dated evidence requires an array of objects with a text label and optional ISO
@@ -16,7 +18,9 @@ lists or tuples. Mappings, strings, null containers and iterators are set aside
 without consumption or coercion. Malformed tokens become deterministic notes.
 Accepted ISO basic/week dates in library records are normalized to calendar-date
 spelling before input hashing, so their staged reports can pass the strict JSON
-replay boundary. The CLI itself continues to require calendar-date spelling.
+replay boundary. CLI `--as-of`, JSON signal dates and `declared_next_review`
+require canonical `YYYY-MM-DD` spelling. Invalid calendar dates and ISO basic/week
+spellings for `--as-of` return exit 2, a diagnostic on stderr and no stdout.
 The existing unknown-tag tolerance remains explicit (`allow_unknown_tags`);
 strict mode blocks unknown tags. Custom registries use the built-in vocabulary.
 Unsupported custom tags are registry errors, not silently unmatched scans.
@@ -49,6 +53,12 @@ and declared metadata, change input identity even if coverage stays unchanged.
 Unsupported schemas and evaluator versions are rejected; there is no silent
 migration. Historical projection semantics are preserved, while prepared examples
 are intentionally regenerated with current version and companion reports.
+
+Prepared example generation reads declarations and `data/example_contexts.json`,
+never previous envelopes or reports. Contexts are maintained inputs; generated
+outputs can be removed or corrupted and rebuilt with identical bytes. Historical
+release packets remain archived; replay of an older evaluator version requires
+that evaluator rather than relabeling the stored report.
 
 `line.report-envelope/1.0` keeps its shared field set. Only applicable readings
 with findings and complete date, registry and context identity can be built;
