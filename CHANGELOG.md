@@ -8,6 +8,8 @@
 - Remove the obsolete registry-shape forwarding helper; use the shared validator.
 - Keep live figure/provenance checks instead of cover wording and incidental
   figure-count assertions.
+- Emit figure registry 2.0 with the publication engine's canonical `alt_text`
+  field; retain prior registry editions only as historical artifacts.
 
 - Require canonical `YYYY-MM-DD` calendar dates for CLI `--as-of`; invalid and
   noncanonical values return usage error 2 with stderr only. Preserve broader

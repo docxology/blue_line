@@ -15,3 +15,8 @@ Build with `uv run python scripts/build_figures.py`, which writes into
 from the repo; PNG bytes depend on the rasterizer environment, so the build
 records raster provenance in a sidecar rather than claiming byte-identical
 PNG reproduction.
+
+The current `figure_registry.json` uses metadata schema `2.0`. Each figure
+and the repeated cover entry carry authored accessibility text under
+`alt_text`, with no serialized `alt` alias or caption fallback. Rasterizing
+a figure changes its file metadata while preserving its accessibility text.

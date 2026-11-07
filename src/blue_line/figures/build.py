@@ -52,7 +52,7 @@ def build_all(output_dir: Path) -> dict[str, str]:
                 "title": spec.title,
                 "filename": name,
                 "caption": spec.description,
-                "alt": spec.description,
+                "alt_text": spec.description,
                 "bytes": len(svg.encode("utf-8")),
                 "source": "blue_line commitment registry and evaluator rules",
                 "generated_by": "blue_line.figures.build_all",
@@ -61,7 +61,7 @@ def build_all(output_dir: Path) -> dict[str, str]:
         )
     cover = next(e for e in entries if e["figure_id"] == COVER_ID)
     registry: dict[str, object] = {
-        "schema_version": "1.5",
+        "schema_version": "2.0",
         "package_version": __version__,
         "registry_digest": registry_digest(),
         "figures": entries,
@@ -128,7 +128,9 @@ def build_png(output_dir: Path, figure_id: str) -> Path:
     png_path = output_dir / f"{figure_id}.png"
     converter = _rasterizer()
     try:
-        version = subprocess.run([converter, "--version"], check=True, capture_output=True, text=True).stdout.strip()
+        version = subprocess.run(
+            [converter, "--version"], check=True, capture_output=True, text=True
+        ).stdout.strip()
         subprocess.run(
             [converter, str(svg_path), "--output", str(png_path)], check=True
         )
@@ -149,18 +151,31 @@ def build_png(output_dir: Path, figure_id: str) -> Path:
         "renderer_version": version,
         "renderer_sha256": hashlib.sha256(renderer_path.read_bytes()).hexdigest(),
         "platform": platform.platform(),
-        "environment": {key: os.environ.get(key) for key in ("LANG", "LC_ALL", "FONTCONFIG_FILE", "FONTCONFIG_PATH")},
+        "environment": {
+            key: os.environ.get(key)
+            for key in ("LANG", "LC_ALL", "FONTCONFIG_FILE", "FONTCONFIG_PATH")
+        },
         "svg_sha256": hashlib.sha256(svg_path.read_bytes()).hexdigest(),
         "png_sha256": hashlib.sha256(png_path.read_bytes()).hexdigest(),
         "reproduction_boundary": "same renderer, libraries, fonts and environment required; no portable byte identity claimed",
     }
-    (output_dir / f"{figure_id}.provenance.json").write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    (output_dir / f"{figure_id}.provenance.json").write_text(
+        json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
     manifest_path = output_dir / FIGURE_REGISTRY_JSON
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     entry = next(item for item in manifest["figures"] if item["figure_id"] == figure_id)
-    entry.update({"filename": png_path.name, "bytes": png_path.stat().st_size,
-                  "format": "PNG with renderer provenance", "raster_provenance": f"{figure_id}.provenance.json"})
+    entry.update(
+        {
+            "filename": png_path.name,
+            "bytes": png_path.stat().st_size,
+            "format": "PNG with renderer provenance",
+            "raster_provenance": f"{figure_id}.provenance.json",
+        }
+    )
     if figure_id == COVER_ID:
         manifest["cover"] = dict(entry)
-    manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
     return png_path

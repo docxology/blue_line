@@ -49,13 +49,13 @@
     },
     {
       "path": "output/dist/blue_line-0.3.0-py3-none-any.whl",
-      "bytes": 31569,
-      "sha256": "ac6aab1c4a2a83f2a75d6d05b728f34a658540b22c88a44655693ccd3757a73d"
+      "bytes": 31587,
+      "sha256": "eac44ab9216464e0680f32b4778d0ae755164cd1c01711fa35824c2483f413a6"
     },
     {
       "path": "output/dist/blue_line-0.3.0.tar.gz",
-      "bytes": 41045,
-      "sha256": "468f69ed9bdae6b7659eb0c8051e64ce387f2d3f2ba9ee59691f3a3947a85f03"
+      "bytes": 40630,
+      "sha256": "63c1acaad1ca306613454ebbc7e38ecacb590a934882b982a4b32e23a5b39e11"
     },
     {
       "path": "output/figures/blue_freshness_window.png",
@@ -119,8 +119,8 @@
     },
     {
       "path": "output/figures/figure_registry.json",
-      "bytes": 3448,
-      "sha256": "b5254e2b084bcc690479180c1a54238ade296305ce1613af40eb450a065ec310"
+      "bytes": 3473,
+      "sha256": "39309f4f00400e69ed3a1934bf340fc2c3f7b04695bd932795671b7a4a4f8a96"
     },
     {
       "path": "uv.lock",
