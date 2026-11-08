@@ -20,3 +20,8 @@ The current `figure_registry.json` uses metadata schema `2.0`. Each figure
 and the repeated cover entry carry authored accessibility text under
 `alt_text`, with no serialized `alt` alias or caption fallback. Rasterizing
 a figure changes its file metadata while preserving its accessibility text.
+
+Every publication SVG includes the cover's opaque house-paper canvas.
+Its dark labels therefore retain their intended contrast when an SVG or PNG
+is embedded in a dark reader. Native rasterization controls exercise both
+light and dark reader backgrounds without disabling the reader's theme.

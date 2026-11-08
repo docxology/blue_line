@@ -4,12 +4,12 @@ from __future__ import annotations
 
 import json
 import os
+import subprocess
 from pathlib import Path
 
 import blue_line
 import pytest
 from blue_line.figures import FIGURE_SPECS, build_all, build_cover_png, figure_ids
-from blue_line.figures.cover import cover_svg
 from blue_line.serialization import registry_digest
 
 
@@ -46,10 +46,6 @@ def test_build_is_deterministic(tmp_output: Path):
     build_all(tmp_output)
     second = {p.name: p.read_bytes() for p in sorted(tmp_output.iterdir())}
     assert first == second
-
-
-def test_cover_svg_is_stable():
-    assert cover_svg() == cover_svg()
 
 
 def test_build_all_includes_cover_in_manifest(tmp_output: Path):
@@ -111,6 +107,30 @@ def test_rasterized_figure_registry_points_at_rendered_file(tmp_output):
         if spec.figure_id == "blue_registry_map"
     )
     assert "alt" not in entry
+
+
+@pytest.mark.parametrize("figure_id", figure_ids())
+def test_publication_canvas_is_independent_of_reader_background(tmp_output, figure_id):
+    from blue_line.figures.build import build_png
+
+    build_all(tmp_output)
+    native = build_png(tmp_output, figure_id)
+    receipt = json.loads((tmp_output / f"{figure_id}.provenance.json").read_text())
+    for background in ("#ffffff", "#232629"):
+        rendered = tmp_output / f"{figure_id}-{background[1:]}.png"
+        subprocess.run(
+            [
+                receipt["renderer_path"],
+                "--background-color",
+                background,
+                str(tmp_output / f"{figure_id}.svg"),
+                "--output",
+                str(rendered),
+            ],
+            check=True,
+            capture_output=True,
+        )
+        assert rendered.read_bytes() == native.read_bytes()
 
 
 @pytest.mark.parametrize(

@@ -13,8 +13,7 @@ from blue_line.records import CommitmentFile
 from blue_line.evaluator import read_file
 
 REPO = Path(__file__).resolve().parents[1]
-ENV = "envelope".join(["", "s"])  # directory name built from parts
-ENVDIR = REPO / "data" / (ENV[:0] + "env" + "elopes")
+ENVDIR = REPO / "data" / "envelopes"
 BINDING = REPO / "data" / "binding_declaration.json"
 
 ENVELOPE_FIELDS = {
@@ -165,30 +164,3 @@ def test_envelopes_match_live_computation():
         assert env == data, name
 
 
-def test_sibling_envelope_schema_frozen_copy():
-    """If a sibling envelope is present, ours must match its field set."""
-
-    sibling = REPO.parent / "black_line" / "data"
-    sibling_envdir = None
-    for candidate in (
-        sibling / (ENV[:0] + "env" + "elopes"),
-        REPO.parent / "witness_register" / "data" / (ENV[:0] + "env" + "elopes"),
-        REPO.parents[1] / "witness_register" / "data" / (ENV[:0] + "env" + "elopes"),
-    ):
-        if candidate.exists():
-            sibling_envdir = candidate
-            break
-    ours = json.loads((ENVDIR / "blue_line_worked.json").read_text(encoding="utf-8"))
-    if sibling_envdir is None:
-        pytest.skip("no sibling envelopes installed; frozen schema asserted above")
-        return
-    found = [
-        p
-        for p in sorted(sibling_envdir.glob("*.json"))
-        if p.name.endswith("_worked.json")
-    ]
-    if not found:
-        pytest.skip("no sibling worked envelope present")
-        return
-    theirs = json.loads(found[0].read_text(encoding="utf-8"))
-    assert set(ours) == set(theirs)

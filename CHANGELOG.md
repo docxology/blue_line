@@ -10,6 +10,11 @@
   figure-count assertions.
 - Emit figure registry 2.0 with the publication engine's canonical `alt_text`
   field; retain prior registry editions only as historical artifacts.
+- Give publication diagrams the cover's opaque house-paper canvas so SVG and
+  PNG labels remain legible in dark readers; verify native rasterization
+  against both light and dark reader backgrounds.
+- Remove the checkout-layout-dependent frozen-copy schema test; retain live
+  envelope eligibility, identity, serialization, and regeneration contracts.
 
 - Require canonical `YYYY-MM-DD` calendar dates for CLI `--as-of`; invalid and
   noncanonical values return usage error 2 with stderr only. Preserve broader

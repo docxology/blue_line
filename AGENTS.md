@@ -2,7 +2,7 @@
 
 ## Identity
 
-`blue_line` is a standalone private repo, the blue color in the docxology
+`blue_line` is a standalone public repo, the blue color in the docxology
 line set. Question: **What must I keep working?** Job: stewardship of
 maintained commitments. It must never become a warranty, SLA, availability
 guarantee, or proof of maintenance. Opus stage: None (stageless by design;

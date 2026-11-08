@@ -11,6 +11,8 @@ from ..enums import CommitmentKind
 from ..evaluator import DEFAULT_MAX_SIGNAL_AGE_DAYS, _resolve_max_age
 from ..registry import BLUE_COMMITMENTS
 
+from .cover import PAPER
+
 _KIND_ORDER = (
     CommitmentKind.SYSTEM,
     CommitmentKind.OBLIGATION,
@@ -34,9 +36,7 @@ def registry_map_svg() -> str:
         members = [c for c in BLUE_COMMITMENTS if c.kind is kind]
         if not members:
             continue
-        rows.append(
-            f'<text x="10" y="{y:.1f}" class="kind">{_esc(kind.value)}</text>'
-        )
+        rows.append(f'<text x="10" y="{y:.1f}" class="kind">{_esc(kind.value)}</text>')
         y += 18.0
         for commitment in sorted(members, key=lambda c: c.id):
             signals = ", ".join(commitment.required_signals)
@@ -51,6 +51,8 @@ def registry_map_svg() -> str:
     return (
         '<svg xmlns="http://www.w3.org/2000/svg" width="720" '
         f'height="{height:.0f}" viewBox="0 0 720 {height:.0f}">'
+        + chr(10)
+        + f'<rect width="720" height="{height:.0f}" fill="{PAPER}"/>'
         + chr(10)
         + "<style>text{font-family:monospace;font-size:12px;fill:#1e293b}"
         ".kind{font-weight:bold}</style>"
@@ -83,6 +85,8 @@ def verdict_paths_svg() -> str:
         '<svg xmlns="http://www.w3.org/2000/svg" width="720" '
         f'height="{height:.0f}" viewBox="0 0 720 {height:.0f}">'
         + chr(10)
+        + f'<rect width="720" height="{height:.0f}" fill="{PAPER}"/>'
+        + chr(10)
         + "<style>text{font-family:monospace;font-size:12px;fill:#1e293b}</style>"
         + chr(10)
         + body
@@ -92,7 +96,9 @@ def verdict_paths_svg() -> str:
     )
 
 
-def freshness_window_svg(as_of: str = "2026-08-01", *, max_signal_age_days: int | None = None) -> str:
+def freshness_window_svg(
+    as_of: str = "2026-08-01", *, max_signal_age_days: int | None = None
+) -> str:
     """Draw the fresh/stale bands against a fixed review date."""
 
     resolved = _resolve_max_age(max_signal_age_days)
@@ -114,6 +120,8 @@ def freshness_window_svg(as_of: str = "2026-08-01", *, max_signal_age_days: int 
     return (
         '<svg xmlns="http://www.w3.org/2000/svg" width="720" '
         f'height="{height:.0f}" viewBox="0 0 720 {height:.0f}">'
+        + chr(10)
+        + f'<rect width="720" height="{height:.0f}" fill="{PAPER}"/>'
         + chr(10)
         + "<style>text{font-family:monospace;font-size:12px;fill:#1e293b}</style>"
         + chr(10)
