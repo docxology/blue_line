@@ -37,6 +37,10 @@ A reading states, first person and underclaiming:
 - I never rank, merge, evaluate, or substitute for any other line instrument.
 - I never guarantee numbers. Every digest, count, and verdict in my outputs
   is derived at run time from the registry and the declared file.
+- I do not calculate Copper's dimensioned use and outstanding commitments or
+  Iron's scenario-bound exercise-target comparisons. Ongoing care remains my
+  job; allocation and recovery findings grant neither consent nor permission.
+  None of these findings compensates for a Red refusal or absent Violet consent.
 
 ## Boundary of the registry
 

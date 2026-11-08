@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.1 — 2026-11-08
+
+- Documentation-only family orientation: distinguish ongoing Blue care from
+  Copper allocation and Iron recovery; mark private repository references as
+  access-controlled and retain consent, refusal, and permission boundaries.
+- Remove incidental wording, internal-wiring, and default-value assertions
+  while retaining behavioral and publication-metadata consistency checks.
+- Update current package/publication metadata without changing the registry,
+  evaluator or report schemas, prior DOI ownership, CI policy, or historical
+  release evidence. Current generated artifacts require a separate native refresh.
+
 ## 0.3.0 — 2026-11-06
 
 - Generate prepared envelopes, reports and bindings from declarations and explicit

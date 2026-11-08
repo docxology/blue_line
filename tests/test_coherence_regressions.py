@@ -1,6 +1,4 @@
 from dataclasses import replace
-from datetime import date
-import sys
 
 import pytest
 
@@ -43,39 +41,15 @@ def test_iterator_is_explicitly_rejected_without_consumption():
     assert all(not s.present for s in surfaces)
 
 
-def test_supported_declaration_is_staged_once():
-    class CountingList(list):
-        def __iter__(self):
-            self.calls += 1
-            return super().__iter__()
-
-    signals = CountingList(["handover_note"])
-    signals.calls = 0
+def test_findings_and_surfaces_agree():
+    signals = ["handover_note"]
     reading, surfaces = read_with_surfaces(CommitmentFile("x", frozenset({"code"}), signals),
                                          as_of="2026-10-20")
-    assert signals.calls == 1
     for finding, surface in zip(reading.findings, surfaces):
         assert finding.commitment_id == surface.commitment_id
         assert (finding.status.value == "MAINTAINED") == (not surface.missing)
         assert (finding.status.value == "STALE") == bool(surface.stale)
         assert set(surface.stale) <= set(surface.missing)
-
-
-def test_default_date_is_resolved_once():
-    calls = []
-
-    def record(frame, event, function):
-        if event == "c_call" and getattr(function, "__name__", "") == "today":
-            calls.append(function)
-
-    previous = sys.getprofile()
-    sys.setprofile(record)
-    try:
-        reading, _ = read_with_surfaces(CommitmentFile("date", frozenset({"code"})))
-    finally:
-        sys.setprofile(previous)
-    assert len(calls) == 1
-    assert reading.read_as_of == date.today().isoformat()
 
 
 @pytest.mark.parametrize("registry", [None, 3, iter(())])

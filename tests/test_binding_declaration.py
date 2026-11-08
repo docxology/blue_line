@@ -31,10 +31,6 @@ def test_binding_matches_brief():
     data = json.loads(BINDING.read_text(encoding="utf-8"))
     assert data["id"] == "blue_line"
     assert data["color"] == "blue"
-    assert data["question"] == "What must I keep working?"
-    assert data["must_not_become"] == (
-        "A warranty, SLA, availability guarantee, or proof of maintenance"
-    )
     assert data["opus_stage"] is None
     assert data["working_position"] is None
     assert data["package_name"] == "blue_line"

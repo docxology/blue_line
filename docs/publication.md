@@ -25,12 +25,16 @@ Obtain one independent read-only audit of the full diff against the review packe
 before tagging. Commit, annotate `vX.Y.Z`, push main and tag through the GitVault
 repository lease, and verify both remote refs resolve to the release commit.
 
-Daniel reserves the new Zenodo version DOI first and mints it in a separate owner
-step. Until then, retain the last verified DOI as a reference to the previous
-published version, explicitly not a DOI assigned to the new release. Never guess
-or pre-fill a DOI. Publication metadata retains that identifier with this boundary.
-After reservation, Daniel updates the version DOI and final deposit metadata.
+The owner explicitly authorized this November 8, 2026 GitHub Release campaign
+with the existing public repositories' Zenodo hooks left active. Inspect the
+authenticated hook state immediately before publication, retain the integration,
+and verify each resulting archive's repository, tag, version, and contents.
+Automatic publication is authorized here; manual reserve-first publication
+remains an alternative workflow, not a prerequisite for this campaign.
 
-Create a GitHub Release object only after an authenticated repository-hooks query
-conclusively shows no Zenodo webhook. A Zenodo hook or inconclusive query means
-skip the object: emitting it could mint a permanent DOI outside reserve-first.
+Until its actual record is verified, no new DOI is asserted. Keep previously
+verified identifiers assigned to their historical versions. Never guess a DOI
+or amend an immutable tag to insert one learned afterward. Without explicit
+archive-publication authority, a Zenodo hook or inconclusive hook observation
+still blocks a Release object. PyPI publication, private-source disclosure, and
+new deposit automation for private siblings remain unauthorized.
