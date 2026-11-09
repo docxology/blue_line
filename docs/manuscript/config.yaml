@@ -3,8 +3,8 @@ paper:
   subtitle: "Software release; retained DOI identifies the previous publication"
   cover:
     image: "../../output/figures/blue_line_cover.png"
-  version: "0.3.0"
-  date: "2026-11-06"
+  version: "0.3.1"
+  date: "2026-11-08"
 authors:
   - name: "Daniel Ari Friedman"
     orcid: "0000-0001-6232-9096"

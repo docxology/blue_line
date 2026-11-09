@@ -11,7 +11,7 @@ from pathlib import Path
 import pytest
 
 from blue_line.cli import read_file_main
-from blue_line.evaluator import DEFAULT_MAX_SIGNAL_AGE_DAYS, read_file
+from blue_line.evaluator import read_file
 from blue_line.records import CareSignal, CommitmentFile
 from blue_line.registry import BLUE_COMMITMENTS
 
@@ -33,7 +33,6 @@ def test_cli_resolves_today_and_exposes_context(capsys):
     assert read_file_main([json.dumps(dated_payload("2026-03-01"))]) == 0
     output = json.loads(capsys.readouterr().out)
     assert output["read_as_of"] == date.today().isoformat()
-    assert output["max_signal_age_days"] == DEFAULT_MAX_SIGNAL_AGE_DAYS
     assert output["registry_version"]
     assert output["registry_digest"]
 

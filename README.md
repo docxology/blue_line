@@ -64,18 +64,27 @@ schema migration, intake-container policy and envelope eligibility, and
 
 ## The Line Set
 
-This work is one of ten declared works in the Line Set family — eight instruments,
-their cross-line reader, and the witness register that co-registers their report
-envelopes without aggregation. This roster identifies the family, not a guarantee
-of public or local source availability. Individual sources may be optional or
-access-controlled; an unavailable source remains explicit, never a substitute:
+The [current Line Set declaration](https://github.com/docxology/line_set/blob/main/src/line_set/registry.py)
+identifies the instruments and their colorless cross-line reader. The Witness
+Register is a separate companion, not a Line Set instrument. This orientation
+does not guarantee public or local source availability: private repositories
+require authorized access, and unavailable sources remain explicit, never
+substituted.
 
 - [Black Line](https://github.com/docxology/black_line) — the practice registry of realized craft
 - [Golden Line](https://github.com/docxology/golden_line) — the aspiration and horizon registry
 - [Red Line](https://github.com/docxology/red_line) — the cognitive-security registry of self-assessments
 - [White Line](https://github.com/docxology/white_line) — the absence and omission ledger
 - [Silver Line](https://github.com/docxology/silver_line) — the memory-and-succession instrument
-- [Violet Line](https://github.com/docxology/violet_line) — the consent ledger of affected parties
+- [Violet Line](https://github.com/docxology/violet_line) — affected-party consent ledger (private; authorized access only)
 - [Green Line](https://github.com/docxology/green_line) — the capacity-under-development instrument
+- [Copper Line](https://github.com/docxology/copper_line) — dimensioned resource use, outstanding commitments, and burden attribution (private; authorized access only)
+- [Iron Line](https://github.com/docxology/iron_line) — named-disruption recovery records and recorded exercise-target comparisons (private; authorized access only)
 - [The Line Set](https://github.com/docxology/line_set) — the cross-line set reader holding instruments apart
 - [The Witness Register](https://github.com/docxology/witness_register) — co-registration without aggregation
+
+Blue remains ongoing care: fresh declared maintenance signals do not calculate
+finite resource exposure or compare a disruption exercise with recovery targets.
+Copper allocation and Iron recovery findings do not establish consent, grant
+permission, or compensate for Red refusals or missing Violet consent. Public
+orientation is not access to any private instrument's source or provenance.

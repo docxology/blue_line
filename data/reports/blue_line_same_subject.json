@@ -1,13 +1,13 @@
 {
   "context": {
     "allow_unknown_tags": true,
-    "evaluator_version": "0.3.0",
+    "evaluator_version": "0.3.1",
     "input_digest": "02fe383f49c1cd3318c2fad79fcd0679fca3130d73825c08323da9d3f45274fe",
     "max_signal_age_days": 180,
     "read_as_of": "2026-08-01",
     "schema_version": "blue_line.evaluation-context/1.0"
   },
-  "context_digest": "2b4abff6d8f319c13c80c94a554c565488b37985f408926b39f876be2bc481a5",
+  "context_digest": "744ed7ee6b5cf1728bca1a17a2e87995f20fb77b4541646d388c52c5e08965c3",
   "input": {
     "dated_evidence": [],
     "declared_next_review": null,
@@ -95,8 +95,8 @@
     "status": "MAINTAINED"
   },
   "projection_digest": "be0cd654cd922550f2079b9c746487ad0000bae871535a653c7f63334d8bf86e",
-  "registry_version": "0.3.0",
-  "replay_digest": "6e70e7d2488f06225c1c494d706cecf045d472ad8f29c1d237dfabeb22ed21e5",
+  "registry_version": "0.3.1",
+  "replay_digest": "37b2b9ae385d679a7a98ba918400d0d975b8caf6ba3949f9ad193490478c1bb2",
   "review_notes": [],
   "schema_version": "blue_line.report/1.0",
   "surfaces": [

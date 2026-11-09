@@ -37,6 +37,12 @@ After a successful render, `uv run python scripts/build_manuscript_bundle.py`
 packages the full web tree (including local font loader and favicon), figures
 and PDF. Inspect the extracted bundle before distributing it.
 
+The 0.3.1 change updates documentation and publication metadata only. Refresh
+current examples, manuscript variables, figures, renderer provenance, and rendered
+manuscript outputs from the final source before preparing new release evidence.
+Do not overwrite historical `docs/releases/` packets or relabel their receipts.
+Blue's inputs and outputs must not contain private sibling source or provenance.
+
 ## Release process
 
 See [publication.md](publication.md) for the complete release procedure.
