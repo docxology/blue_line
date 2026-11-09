@@ -1,8 +1,18 @@
 # Publication and versioned releases
 
-The review dispatch referred to this file, but it was absent at the reviewed
-commit. This release records the explicit reserve-first procedure from Daniel's
-brief here; no missing historical procedure is inferred.
+## Source citation and archive objects
+
+Source edition **0.3.2**, dated November 9, 2026. Cite inspected source
+through <https://github.com/docxology/blue_line> with its version and exact revision.
+A source declaration, GitHub Release, source archive, and rendered manuscript
+are separate objects; each needs its own publication and qualification evidence.
+
+Previously verified source archive: **0.3.1** /
+<https://doi.org/10.5281/zenodo.24069451>. That identifier names the released
+SOURCE ZIP only, not this later source or a standalone rendered manuscript.
+The retained older title/DOI reference (`10.5281/zenodo.22833490`) remains
+historical; its exact edition version is not established here. Later source
+is cited by repository until its exact edition/object is independently verified.
 
 Choose a semver greater than all current declarations and remote tags. Behavior
 changes require at least a minor increment. Synchronize package, pyproject/lock,
@@ -25,12 +35,15 @@ Obtain one independent read-only audit of the full diff against the review packe
 before tagging. Commit, annotate `vX.Y.Z`, push main and tag through the GitVault
 repository lease, and verify both remote refs resolve to the release commit.
 
-The owner explicitly authorized this November 8, 2026 GitHub Release campaign
-with the existing public repositories' Zenodo hooks left active. Inspect the
-authenticated hook state immediately before publication, retain the integration,
-and verify each resulting archive's repository, tag, version, and contents.
-Automatic publication is authorized here; manual reserve-first publication
-remains an alternative workflow, not a prerequisite for this campaign.
+The owner authorized the November 8, 2026 GitHub Release campaign with the
+existing public repositories' Zenodo hooks left active. That is dated authority,
+not a receipt for this candidate or blanket future authorization. For a future
+owner-authorized release, inspect authenticated hooks immediately before
+publication, retain the authorized integration, and independently verify each
+resulting archive's repository, tag, version, and contents. Normal authorized
+GitHub Release plus the existing public hook remains allowed. Manual reserve-first
+is an alternative for a specifically authorized object, not a universal
+prerequisite; a reserved DOI is not a published deposit.
 
 Until its actual record is verified, no new DOI is asserted. Keep previously
 verified identifiers assigned to their historical versions. Never guess a DOI

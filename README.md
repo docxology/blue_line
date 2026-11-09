@@ -60,7 +60,7 @@ containers. Optional `declared_owner`, `declared_next_review` (`YYYY-MM-DD`) and
 
 See [the report contract](docs/reports.md) for projection versus replay identity,
 schema migration, intake-container policy and envelope eligibility, and
-[publication](docs/publication.md) for the reserve-first DOI procedure.
+[publication](docs/publication.md) for source-edition citation, historical archive boundaries, and authorized release procedures.
 
 ## The Line Set
 
@@ -71,7 +71,7 @@ does not guarantee public or local source availability: private repositories
 require authorized access, and unavailable sources remain explicit, never
 substituted.
 
-- [Black Line](https://github.com/docxology/black_line) — the practice registry of realized craft
+- [Black Line](https://github.com/docxology/black_line) — declared practice and evidence-label coverage
 - [Golden Line](https://github.com/docxology/golden_line) — the aspiration and horizon registry
 - [Red Line](https://github.com/docxology/red_line) — the cognitive-security registry of self-assessments
 - [White Line](https://github.com/docxology/white_line) — the absence and omission ledger

@@ -1,10 +1,10 @@
 paper:
   title: "The Blue Line: A Stewardship Instrument for Maintained Commitments"
-  subtitle: "Software release; retained DOI identifies the previous publication"
+  subtitle: "Proposed source edition; source ZIP and standalone manuscript identities are separate"
   cover:
     image: "../../output/figures/blue_line_cover.png"
-  version: "0.3.1"
-  date: "2026-11-08"
+  version: "0.3.2"
+  date: "2026-11-09"
 authors:
   - name: "Daniel Ari Friedman"
     orcid: "0000-0001-6232-9096"
@@ -12,7 +12,10 @@ authors:
     affiliation: "Active Inference Institute"
     corresponding: true
 publication:
-  doi: "10.5281/zenodo.22833490"
+  archived_version: "0.3.1"
+  archived_version_doi: "10.5281/zenodo.24069451"
+  doi_status: "Source edition 0.3.2 cited by repository; archived identifier is the 0.3.1 source ZIP only, not this manuscript"
+  repository_url: "https://github.com/docxology/blue_line"
 keywords:
   - "stewardship"
   - "maintenance"
@@ -30,4 +33,4 @@ metadata:
   license: "CC-BY-4.0 (prose); Apache-2.0 (code)"
   status: "living document — versioned and revisable"
   geometry: "left=0.33in,right=0.33in,top=0.55in,bottom=0.55in"
-  language: "en"
+  language: "en-US"

@@ -9,6 +9,11 @@ to the current local date; `datetime.datetime` is not a review date. The date an
 window are resolved once, and one normalized declaration produces findings and
 surfaces.
 
+Pass a reading and the surfaces returned with it by the **same**
+`read_with_surfaces` call to `build_report` or `stewardship_worklist`. These
+projectors neither re-evaluate nor validate that independently supplied pairs
+belong together; `replay_report` separately checks complete correspondence.
+
 JSON input requires an object. Label fields require arrays of nonblank text;
 dated evidence requires an array of objects with a text label and optional ISO
 date or null. Unknown fields, malformed shapes and malformed dates are usage
@@ -59,11 +64,16 @@ never previous envelopes or reports. Contexts are maintained inputs; generated
 outputs can be removed or corrupted and rebuilt with identical bytes. Historical
 release packets remain archived; replay of an older evaluator version requires
 that evaluator rather than relabeling the stored report.
+Generation refreshes only currently declared file stems; it does not retire old
+output filenames. The authored declaration set, not a directory listing of
+generated reports, is the current example roster.
 
 `line.report-envelope/1.0` keeps its shared field set. Only applicable readings
 with findings and complete date, registry and context identity can be built;
-the helper and builder enforce the same eligibility. OUTSIDE_SCOPE remains
-available as a local reading/report, but is not eligible for an envelope.
+the helper and builder enforce the same eligibility. A normalized unmatched
+OUTSIDE_SCOPE reading can retain a local report. Blocked intake has no normalized
+declaration: `build_report` refuses it and the CLI emits `report: null`.
+Neither case is eligible for an envelope.
 NEEDS_ATTENTION and STALE remain recordable. `report_ref` remains the precisely
 named legacy projection digest; a companion report adds replay context without
 altering the shared schema. `envelope_digest` identifies the entire envelope,

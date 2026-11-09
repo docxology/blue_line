@@ -1,19 +1,36 @@
 cff-version: 1.2.0
-message: "This software version awaits a new Zenodo version DOI; the retained DOI identifies the previous published version."
+message: "Cite proposed source version 0.3.2 through its repository. The references identify earlier editions, not this candidate or a standalone manuscript."
 title: blue_line
 type: software
 authors:
   - family-names: Friedman
     given-names: Daniel Ari
     orcid: https://orcid.org/0000-0001-6232-9096
-version: 0.3.1
-date-released: "2026-11-08"
+version: 0.3.2
+date-released: "2026-11-09"
 abstract: >-
   A stewardship instrument for maintained commitments: systems, obligations,
   and relationships to past work. Reads a declared file of commitments
   against a versioned registry and returns a fail-closed declaration-
   coverage verdict. Never a warranty, SLA, or proof of maintenance.
 identifiers:
-  - type: doi
-    value: "10.5281/zenodo.22833490"
+  - type: url
+    value: "https://github.com/docxology/blue_line"
 license: Apache-2.0
+repository-code: "https://github.com/docxology/blue_line"
+references:
+  - type: software
+    title: blue_line
+    authors:
+      - family-names: Friedman
+        given-names: Daniel Ari
+    doi: "10.5281/zenodo.22833490"
+    notes: "Retained earlier published edition; its exact version is not established here. Not an identifier for this candidate."
+  - type: software
+    title: blue_line
+    version: "0.3.1"
+    authors:
+      - family-names: Friedman
+        given-names: Daniel Ari
+    doi: "10.5281/zenodo.24069451"
+    notes: "Previously verified source ZIP only; not a standalone rendered manuscript or this proposed edition."

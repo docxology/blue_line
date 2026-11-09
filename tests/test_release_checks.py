@@ -16,7 +16,7 @@ from blue_line.version import __version__
 ROOT = Path(__file__).resolve().parents[1]
 
 
-@pytest.mark.parametrize("mutation", ["none", "version", "doi"])
+@pytest.mark.parametrize("mutation", ["none", "version"])
 def test_publication_gate_with_real_negative_controls(tmp_path, mutation, capsys):
     for name in (
         "pyproject.toml",
@@ -33,15 +33,15 @@ def test_publication_gate_with_real_negative_controls(tmp_path, mutation, capsys
         cff.write_text(
             cff.read_text().replace(f"version: {__version__}", "version: 999.0.0")
         )
-    elif mutation == "doi":
-        cff.write_text(cff.read_text().replace("10.5281/zenodo.", "10.9999/zenodo."))
     assert check_publication_main(tmp_path) == (0 if mutation == "none" else 1)
     assert ("FAIL" in capsys.readouterr().out) == (mutation != "none")
 
 
 def test_example_regeneration_is_idempotent_on_real_files(tmp_path):
     shutil.copytree(ROOT / "data/declared_files", tmp_path / "data/declared_files")
-    shutil.copyfile(ROOT / "data/example_contexts.json", tmp_path / "data/example_contexts.json")
+    shutil.copyfile(
+        ROOT / "data/example_contexts.json", tmp_path / "data/example_contexts.json"
+    )
     first = {p.relative_to(tmp_path): p.read_bytes() for p in write_examples(tmp_path)}
     for path in first:
         (tmp_path / path).write_text("corrupted generated output")

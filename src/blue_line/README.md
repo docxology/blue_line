@@ -17,7 +17,7 @@ Runtime package. Pure standard library, frozen dataclasses, no mocking.
 | `envelope.py` | `line.report-envelope/1.0` construction and eligibility |
 | `ledger.py` | Formalism claim ledger derived from the live package |
 | `examples.py` | Regenerates prepared declarations, envelopes and companion reports under `data/` |
-| `publication.py` | Local version/DOI consistency checks and manuscript bundle packaging |
+| `publication.py` | Local version consistency checks and manuscript bundle packaging; DOI identity and external publication are separate |
 | `cli.py` | Command bodies for the thin `scripts/` entrypoints |
 | `version.py` | Package version marker |
 | `figures/` | Deterministic figure specs, SVG/PNG builders |
