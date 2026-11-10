@@ -126,7 +126,9 @@ class _UnreadableSignal:
 
 
 @pytest.mark.parametrize("field", ["label", "noted_on"])
-@pytest.mark.parametrize("error_type", [ValueError, RuntimeError, TypeError, AttributeError])
+@pytest.mark.parametrize(
+    "error_type", [ValueError, RuntimeError, TypeError, AttributeError]
+)
 def test_public_read_sets_aside_unreadable_signal_and_scores_sibling(field, error_type):
     valid = CareSignal("check_result", "2026-08-01")
     file = CommitmentFile(

@@ -156,7 +156,10 @@ def test_public_builder_preserves_scalar_metadata_and_canonical_reference_order(
     expected["source_snapshot_refs"] = ["a-e\u0301-📘", "a-é-📘", "z-資料-🧭"]
     assert envelope == expected
     canonical_bytes = json.dumps(expected, sort_keys=True).encode("utf-8")
-    assert blue_line.envelope_digest(envelope) == hashlib.sha256(canonical_bytes).hexdigest()
+    assert (
+        blue_line.envelope_digest(envelope)
+        == hashlib.sha256(canonical_bytes).hexdigest()
+    )
 
 
 def test_worked_envelope_exists_and_matches_schema():

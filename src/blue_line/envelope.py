@@ -83,7 +83,11 @@ def build_envelope(
 
     if not envelope_matches_reading(reading):
         raise EnvelopeEligibilityError("reading")
-    if not _is_scalar_text(subject_id) or not subject_id.strip() or subject_id != subject_id.strip():
+    if (
+        not _is_scalar_text(subject_id)
+        or not subject_id.strip()
+        or subject_id != subject_id.strip()
+    ):
         raise EnvelopeEligibilityError("subject_id")
     if not isinstance(source_snapshot_refs, tuple) or any(
         not _is_scalar_text(ref) or not ref.strip() or ref != ref.strip()
