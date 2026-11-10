@@ -45,11 +45,15 @@ def _clean_signals(records: object) -> tuple[tuple[CareSignal, ...], tuple[str, 
     kept: list[CareSignal] = []
     notes: list[str] = []
     for item in records:
-        label = getattr(item, "label", None)
+        try:
+            label = getattr(item, "label")
+            noted_on = getattr(item, "noted_on")
+        except Exception:
+            notes.append("ignored a care-signal record with unreadable attributes")
+            continue
         if not isinstance(label, str) or not label.strip():
             notes.append("ignored a care-signal record without a usable label")
             continue
-        noted_on = getattr(item, "noted_on", None)
         if noted_on is not None:
             if isinstance(noted_on, str):
                 try:

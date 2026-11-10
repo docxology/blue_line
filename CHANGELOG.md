@@ -2,6 +2,8 @@
 
 ## 0.3.2 — 2026-11-09
 
+- Set aside dated care records whose label or date attributes raise ordinary exceptions, with a fixed safe intake note; continue scoring valid siblings without treating unreadable dates as undated evidence. Process-control exceptions still propagate.
+- Reject surrogate-bearing subject identifiers and snapshot references at envelope construction. Preserve valid Unicode metadata, sorted reference emission, canonical digests, and historical artifacts.
 - Document that report/worklist projectors require the reading and surfaces from one evaluation; complete replay remains a separate check.
 - Distinguish a normalized unmatched OUTSIDE_SCOPE report from blocked intake with no companion report, and distinguish the current declared example roster from retired generated filenames.
 - Separate current software citation from historical archive identifiers, including the verified 0.3.1 source ZIP, without changing the legacy projection digest or replay schemas.

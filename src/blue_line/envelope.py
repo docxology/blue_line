@@ -63,6 +63,12 @@ class EnvelopeEligibilityError(ValueError):
         super().__init__(f"{field}: envelope requires an applicable reading and nonblank identifiers")
 
 
+def _is_scalar_text(value: object) -> bool:
+    return isinstance(value, str) and not any(
+        0xD800 <= ord(character) <= 0xDFFF for character in value
+    )
+
+
 def build_envelope(
     reading: StewardshipReading,
     *,
@@ -77,10 +83,10 @@ def build_envelope(
 
     if not envelope_matches_reading(reading):
         raise EnvelopeEligibilityError("reading")
-    if not isinstance(subject_id, str) or not subject_id.strip() or subject_id != subject_id.strip():
+    if not _is_scalar_text(subject_id) or not subject_id.strip() or subject_id != subject_id.strip():
         raise EnvelopeEligibilityError("subject_id")
     if not isinstance(source_snapshot_refs, tuple) or any(
-        not isinstance(ref, str) or not ref.strip() or ref != ref.strip()
+        not _is_scalar_text(ref) or not ref.strip() or ref != ref.strip()
         for ref in source_snapshot_refs
     ):
         raise EnvelopeEligibilityError("source_snapshot_refs")

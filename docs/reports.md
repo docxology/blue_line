@@ -21,6 +21,11 @@ errors. Diagnostics identify field and index without converting tokens to text.
 Library intake supports label lists, tuples, sets and frozensets, and dated-record
 lists or tuples. Mappings, strings, null containers and iterators are set aside
 without consumption or coercion. Malformed tokens become deterministic notes.
+Ordinary exceptions while reading a dated record's `label` or `noted_on`
+attribute set aside that entire record with a fixed diagnostic, without exposing
+caller exception details. Valid sibling records still contribute to the reading.
+An unreadable date attribute never becomes undated evidence; process-control
+exceptions propagate, and evaluation failures are not contained by this boundary.
 Accepted ISO basic/week dates in library records are normalized to calendar-date
 spelling before input hashing, so their staged reports can pass the strict JSON
 replay boundary. CLI `--as-of`, JSON signal dates and `declared_next_review`
@@ -79,6 +84,12 @@ named legacy projection digest; a companion report adds replay context without
 altering the shared schema. `envelope_digest` identifies the entire envelope,
 including subject and sorted snapshot references, separately from report content.
 Identifiers and snapshot references are declarations, not inspected content.
+The envelope builder requires nonblank, unpadded Unicode scalar text for subject
+identifiers and each snapshot reference. Surrogate code points are rejected,
+including explicit surrogate pairs, rather than repaired or escaped into an
+admitted identity. Valid non-ASCII and supplementary characters are preserved
+without normalization. Snapshot references retain their tuple-input contract and
+are emitted sorted and deduplicated; bare strings are not reference collections.
 
 The worklist is a sorted projection of missing/stale surfaces, with commitment ID,
 signal, declaration status and optional file-level declared owner, next-review
