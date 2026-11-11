@@ -9,6 +9,11 @@ to the current local date; `datetime.datetime` is not a review date. The date an
 window are resolved once, and one normalized declaration produces findings and
 surfaces.
 
+Pass a reading and the surfaces returned with it by the **same**
+`read_with_surfaces` call to `build_report` or `stewardship_worklist`. These
+projectors neither re-evaluate nor validate that independently supplied pairs
+belong together; `replay_report` separately checks complete correspondence.
+
 JSON input requires an object. Label fields require arrays of nonblank text;
 dated evidence requires an array of objects with a text label and optional ISO
 date or null. Unknown fields, malformed shapes and malformed dates are usage
@@ -16,6 +21,11 @@ errors. Diagnostics identify field and index without converting tokens to text.
 Library intake supports label lists, tuples, sets and frozensets, and dated-record
 lists or tuples. Mappings, strings, null containers and iterators are set aside
 without consumption or coercion. Malformed tokens become deterministic notes.
+Ordinary exceptions while reading a dated record's `label` or `noted_on`
+attribute set aside that entire record with a fixed diagnostic, without exposing
+caller exception details. Valid sibling records still contribute to the reading.
+An unreadable date attribute never becomes undated evidence; process-control
+exceptions propagate, and evaluation failures are not contained by this boundary.
 Accepted ISO basic/week dates in library records are normalized to calendar-date
 spelling before input hashing, so their staged reports can pass the strict JSON
 replay boundary. CLI `--as-of`, JSON signal dates and `declared_next_review`
@@ -59,16 +69,27 @@ never previous envelopes or reports. Contexts are maintained inputs; generated
 outputs can be removed or corrupted and rebuilt with identical bytes. Historical
 release packets remain archived; replay of an older evaluator version requires
 that evaluator rather than relabeling the stored report.
+Generation refreshes only currently declared file stems; it does not retire old
+output filenames. The authored declaration set, not a directory listing of
+generated reports, is the current example roster.
 
 `line.report-envelope/1.0` keeps its shared field set. Only applicable readings
 with findings and complete date, registry and context identity can be built;
-the helper and builder enforce the same eligibility. OUTSIDE_SCOPE remains
-available as a local reading/report, but is not eligible for an envelope.
+the helper and builder enforce the same eligibility. A normalized unmatched
+OUTSIDE_SCOPE reading can retain a local report. Blocked intake has no normalized
+declaration: `build_report` refuses it and the CLI emits `report: null`.
+Neither case is eligible for an envelope.
 NEEDS_ATTENTION and STALE remain recordable. `report_ref` remains the precisely
 named legacy projection digest; a companion report adds replay context without
 altering the shared schema. `envelope_digest` identifies the entire envelope,
 including subject and sorted snapshot references, separately from report content.
 Identifiers and snapshot references are declarations, not inspected content.
+The envelope builder requires nonblank, unpadded Unicode scalar text for subject
+identifiers and each snapshot reference. Surrogate code points are rejected,
+including explicit surrogate pairs, rather than repaired or escaped into an
+admitted identity. Valid non-ASCII and supplementary characters are preserved
+without normalization. Snapshot references retain their tuple-input contract and
+are emitted sorted and deduplicated; bare strings are not reference collections.
 
 The worklist is a sorted projection of missing/stale surfaces, with commitment ID,
 signal, declaration status and optional file-level declared owner, next-review

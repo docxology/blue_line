@@ -17,7 +17,7 @@ subprocess coverage in `tests/test_scripts_cli.py`.
 | `gen_formalism_ledger.py` | Regenerates `data/formalism_claim_ledger.json` from the live package; the file is a derived projection, never edited by hand | `blue_line.ledger.write_formalism_ledger` |
 | `read_file_cli.py` | Reads a strict JSON declaration; optional `--as-of YYYY-MM-DD` defaults to current local date. Exposes effective context, findings, surfaces, replay report and declaration worklist; malformed shape is exit 2 | `blue_line.cli.read_file_main` |
 | `gen_examples.py` | Regenerates local prepared envelopes, companion reports and bindings; preserves historical subject references | `blue_line.examples.write_examples` |
-| `check_publication.py` | Checks version and retained-DOI consistency without external publication | `blue_line.publication.check_publication_main` |
+| `check_publication.py` | Checks local version agreement, not DOI identity or external publication | `blue_line.publication.check_publication_main` |
 | `render_manuscript.py` | Hydrates variables and invokes PDF/HTML rendering in an explicitly supplied isolated template export | template rendering APIs |
 | `build_manuscript_bundle.py` | Packages the complete web asset tree, figures and PDF after rendering | `blue_line.publication.build_manuscript_bundle` |
 

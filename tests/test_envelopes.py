@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -127,6 +128,38 @@ def test_builder_and_helper_reject_invalid_context_policy(changes):
     assert not blue_line.envelope_matches_reading(reading)
     with pytest.raises(blue_line.EnvelopeEligibilityError):
         blue_line.build_envelope(reading, subject_id="subject")
+
+
+@pytest.mark.parametrize("field", ["subject_id", "source_snapshot_refs"])
+@pytest.mark.parametrize(
+    "text",
+    ["\ud800", "\udbff", "\udc00", "\udfff", "prefix\ud955suffix", "\ud83d\udcd8"],
+)
+def test_public_builder_rejects_non_scalar_transport_identity(field, text):
+    reading = blue_line.read_file(_worked_file(), as_of="2026-08-01")
+    metadata = {"subject_id": "subject", "source_snapshot_refs": ("snapshot",)}
+    metadata[field] = text if field == "subject_id" else ("snapshot", text)
+    with pytest.raises(blue_line.EnvelopeEligibilityError) as caught:
+        blue_line.build_envelope(reading, **metadata)
+    assert caught.value.field == field
+
+
+def test_public_builder_preserves_scalar_metadata_and_canonical_reference_order():
+    reading = blue_line.read_file(_worked_file(), as_of="2026-08-01")
+    subject = "sujet-é-📘"
+    refs = ("z-資料-🧭", "a-e\u0301-📘", "a-é-📘", "z-資料-🧭")
+    envelope = blue_line.build_envelope(
+        reading, subject_id=subject, source_snapshot_refs=refs
+    )
+    expected = blue_line.build_envelope(reading, subject_id="subject")
+    expected["subject_id"] = subject
+    expected["source_snapshot_refs"] = ["a-e\u0301-📘", "a-é-📘", "z-資料-🧭"]
+    assert envelope == expected
+    canonical_bytes = json.dumps(expected, sort_keys=True).encode("utf-8")
+    assert (
+        blue_line.envelope_digest(envelope)
+        == hashlib.sha256(canonical_bytes).hexdigest()
+    )
 
 
 def test_worked_envelope_exists_and_matches_schema():

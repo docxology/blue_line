@@ -12,7 +12,7 @@
   ],
   "license": "apache-2.0",
   "access_right": "open",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "keywords": [
     "stewardship",
     "maintenance",
@@ -56,5 +56,5 @@
       "scheme": "url"
     }
   ],
-  "notes": "One of the Line Set family of related works; consult the current Line Set declaration for instruments, their cross-line reader, and access-aware references. The Witness Register remains a separate companion. Copper allocation and Iron recovery do not establish consent or permission. The retained DOI 10.5281/zenodo.22833490 identifies the previous published version, not this release. Daniel must reserve the new version DOI before minting; no new DOI is assigned by this software release."
+  "notes": "Source metadata for version 0.3.2; a source declaration is not a release or deposit receipt. Previously verified source archive: 0.3.1 / 10.5281/zenodo.24069451, identifying that SOURCE ZIP only, not a standalone manuscript or this source edition. Retained earlier edition: 10.5281/zenodo.22833490; exact version is not established here. Cite later source through its repository until its exact edition/object is independently verified. The November 8, 2026 public-hook authorization is historical; future publication requires current owner authority and actual archive verification. Manual reserve-first remains an alternative, not a universal prerequisite. Consult the Line Set declaration for access-aware family orientation; Witness remains separate. Copper allocation and Iron recovery do not establish consent or permission."
 }

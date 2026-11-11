@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import pytest
+
+import blue_line
 from blue_line.enums import FileStatus
 from blue_line.intake import intake
 from blue_line.records import CareSignal, CommitmentFile
@@ -102,3 +105,78 @@ def test_unknown_tag_note_and_strict_block():
     assert file2 is None
     assert status2 is FileStatus.OUTSIDE_SCOPE
     assert any("unknown tags block" in note for note in notes2)
+
+
+class _UnreadableSignal:
+    def __init__(self, field: str, error: BaseException) -> None:
+        self.field = field
+        self.error = error
+
+    @property
+    def label(self) -> str:
+        if self.field == "label":
+            raise self.error
+        return "check_run"
+
+    @property
+    def noted_on(self) -> str:
+        if self.field == "noted_on":
+            raise self.error
+        return "2026-08-01"
+
+
+@pytest.mark.parametrize("field", ["label", "noted_on"])
+@pytest.mark.parametrize(
+    "error_type", [ValueError, RuntimeError, TypeError, AttributeError]
+)
+def test_public_read_sets_aside_unreadable_signal_and_scores_sibling(field, error_type):
+    valid = CareSignal("check_result", "2026-08-01")
+    file = CommitmentFile(
+        "caller-controlled dated records",
+        tags=frozenset({"code"}),
+        dated_evidence=(
+            _UnreadableSignal(field, error_type("private caller detail")),
+            valid,
+        ),
+    )
+    commitment = blue_line.Commitment(
+        id="checks",
+        title="Declared checks",
+        wire="Keep check declarations current",
+        tags=frozenset({"code"}),
+        required_signals=("check_run", "check_result"),
+    )
+    reading, surfaces = blue_line.read_with_surfaces(
+        file, commitments=(commitment,), as_of="2026-08-01"
+    )
+    assert reading.status is FileStatus.NEEDS_ATTENTION
+    assert reading.normalized_input.dated_evidence == (valid,)
+    assert surfaces == (
+        blue_line.SignalSurfaces("checks", ("check_result",), ("check_run",), ()),
+    )
+    assert reading.intake_notes
+    assert all("private caller detail" not in note for note in reading.intake_notes)
+
+
+@pytest.mark.parametrize("field", ["label", "noted_on"])
+@pytest.mark.parametrize("error_type", [KeyboardInterrupt, SystemExit, GeneratorExit])
+def test_public_read_propagates_signal_getter_process_control(field, error_type):
+    error = error_type("stop this read")
+    file = CommitmentFile(
+        "interrupted input",
+        tags=frozenset({"code"}),
+        dated_evidence=(_UnreadableSignal(field, error),),
+    )
+    with pytest.raises(error_type) as caught:
+        blue_line.read_file(file, as_of="2026-08-01")
+    assert caught.value is error
+
+
+def test_unreadable_signal_does_not_hide_review_date_failure():
+    file = CommitmentFile(
+        "invalid review policy",
+        tags=frozenset({"code"}),
+        dated_evidence=(_UnreadableSignal("noted_on", ValueError("unreadable")),),
+    )
+    with pytest.raises(ValueError):
+        blue_line.read_file(file, as_of="not-a-date")

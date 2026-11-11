@@ -2,7 +2,7 @@
   "line_id": "blue_line",
   "native_status": "MAINTAINED",
   "registry_digest": "9ae7cae1f0f7389f2f58bd7f75a2038a4c48d791166bf79c100d78f2f379e8fd",
-  "registry_version": "0.3.1",
+  "registry_version": "0.3.2",
   "report_ref": "be0cd654cd922550f2079b9c746487ad0000bae871535a653c7f63334d8bf86e",
   "review_date": "2026-08-01",
   "schema_version": "line.report-envelope/1.0",

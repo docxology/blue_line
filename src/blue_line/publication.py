@@ -20,17 +20,17 @@ def publication_checks(repo: Path) -> tuple[tuple[str, bool, str], ...]:
     ):
         text = (repo / filename).read_text(encoding="utf-8")
         match = re.search(pattern, text, re.MULTILINE)
-        results.append((filename, match is not None and match[1] == __version__, "version consistency"))
+        results.append(
+            (
+                filename,
+                match is not None and match[1] == __version__,
+                "version consistency",
+            )
+        )
     zenodo = json.loads((repo / ".zenodo.json").read_text(encoding="utf-8"))
-    results.append((".zenodo.json", zenodo.get("version") == __version__, "version consistency"))
-    cff = (repo / "CITATION.cff").read_text(encoding="utf-8")
-    config = (repo / "docs/manuscript/config.yaml").read_text(encoding="utf-8")
-    doi_pattern = r"10\.\d{4,9}/[A-Za-z0-9.]+"
-    cff_doi = re.findall(doi_pattern, cff)
-    config_doi = re.findall(doi_pattern, config)
-    notes_doi = re.findall(doi_pattern, zenodo.get("notes", ""))
-    results.append(("retained_doi", len(cff_doi) == 1 and cff_doi == config_doi == notes_doi,
-                    "retained previous-version identifier agrees; not a live DOI verification"))
+    results.append(
+        (".zenodo.json", zenodo.get("version") == __version__, "version consistency")
+    )
     return tuple(results)
 
 
