@@ -8,6 +8,8 @@ question — **What must I keep working?** — by reading a declared file of
 commitments against a versioned registry and returning a verdict that
 describes declaration coverage of care signals at a review date.
 
+![blue_line record-flow architecture: CommitmentFile and CareSignal staged intake, 12-commitment registry, stewardship surface reader and worklist, and MAINTAINED / NEEDS_ATTENTION / STALE / OUTSIDE_SCOPE verdicts and report envelopes](docs/assets/architecture-overview.svg)
+
 ## What it is
 
 - A versioned registry of keepable commitments, each with required

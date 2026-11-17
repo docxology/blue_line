@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="452" viewBox="0 0 960 452" role="img" aria-labelledby="t d">
+<title id="t">blue_line — Maintained Commitment Stewardship Record Flow</title>
+<desc id="d">Record flow from CommitmentFile declarations and CareSignals through the 12-commitment registry and fail-closed stewardship reader to verdicts, worklists, and envelopes.</desc>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0 1.5L9 5L0 8.5z" fill="#64748b"/></marker></defs>
+<rect x="0" y="0" width="960" height="452" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="20" y="18" width="920" height="64" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<rect x="20" y="18" width="6" height="64" rx="3" fill="#2563eb"/>
+<text x="38" y="44" font-family="system-ui,sans-serif" font-size="17.5" font-weight="700" fill="#0f172a">blue_line — Stewardship Record Flow</text>
+<text x="38" y="66" font-family="system-ui,sans-serif" font-size="12" fill="#475569">What must I keep working? Declaration-coverage verdicts for maintained commitments</text>
+<rect x="768" y="27" width="158" height="24" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="1"/>
+<text x="847.0" y="43" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" font-weight="600" fill="#1e40af">v0.3.2 · stageless</text>
+<rect x="20" y="98" width="218" height="150" rx="9" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<rect x="20" y="98" width="218" height="5" rx="2.5" fill="#2563eb"/>
+<rect x="32" y="108" width="60" height="17" rx="8.5" fill="#ffffff" stroke="#2563eb" stroke-width="0.9"/>
+<text x="62.0" y="120" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" font-weight="600" fill="#1e40af">INPUTS</text>
+<text x="32" y="141" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#1e40af">1. Commitment Intake</text>
+<text x="32" y="160" font-family="ui-monospace,monospace" font-size="11" fill="#1e293b">CommitmentFile + CareSignal</text>
+<text x="32" y="178" font-family="ui-monospace,monospace" font-size="11" fill="#1e293b">EvaluationContext (--as-of)</text>
+<text x="32" y="196" font-family="system-ui,sans-serif" font-size="11.5" fill="#334155">5 commitment tag families</text>
+<text x="32" y="214" font-family="system-ui,sans-serif" font-size="11.5" fill="#334155">Fail-closed staged intake</text>
+<text x="32" y="232" font-family="system-ui,sans-serif" font-size="11.5" fill="#334155">Malformed set aside w/ note</text>
+<line x1="238" y1="173" x2="254" y2="173" stroke="#64748b" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="256" y="98" width="218" height="150" rx="9" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.5"/>
+<rect x="256" y="98" width="218" height="5" rx="2.5" fill="#4f46e5"/>
+<rect x="268" y="108" width="75" height="17" rx="8.5" fill="#ffffff" stroke="#4f46e5" stroke-width="0.9"/>
+<text x="305.5" y="120" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" font-weight="600" fill="#3730a3">REGISTER</text>
+<text x="268" y="141" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#3730a3">2. Commitment Registry</text>
+<text x="268" y="160" font-family="ui-monospace,monospace" font-size="11" fill="#1e293b">BLUE_COMMITMENTS (12 items)</text>
+<text x="268" y="178" font-family="ui-monospace,monospace" font-size="11" fill="#1e293b">invariants_hold() checks</text>
+<text x="268" y="196" font-family="system-ui,sans-serif" font-size="11.5" fill="#334155">Handover &amp; check-run rules</text>
+<text x="268" y="214" font-family="system-ui,sans-serif" font-size="11.5" fill="#334155">Response log &amp; cadence</text>
+<text x="268" y="232" font-family="system-ui,sans-serif" font-size="11.5" fill="#334155">SHA-256 registry_digest</text>
+<line x1="474" y1="173" x2="490" y2="173" stroke="#64748b" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="492" y="98" width="218" height="150" rx="9" fill="#f0fdfa" stroke="#0d9488" stroke-width="1.5"/>
+<rect x="492" y="98" width="218" height="5" rx="2.5" fill="#0d9488"/>
+<rect x="504" y="108" width="75" height="17" rx="8.5" fill="#ffffff" stroke="#0d9488" stroke-width="0.9"/>
+<text x="541.5" y="120" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" font-weight="600" fill="#115e59">EVALUATE</text>
+<text x="504" y="141" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#115e59">3. Stewardship Reader</text>
+<text x="504" y="160" font-family="ui-monospace,monospace" font-size="11" fill="#1e293b">read_with_surfaces()</text>
+<text x="504" y="178" font-family="ui-monospace,monospace" font-size="11" fill="#1e293b">stewardship_worklist()</text>
+<text x="504" y="196" font-family="system-ui,sans-serif" font-size="11.5" fill="#334155">Freshness window coverage</text>
+<text x="504" y="214" font-family="system-ui,sans-serif" font-size="11.5" fill="#334155">Per-item SignalSurfaces</text>
+<text x="504" y="232" font-family="system-ui,sans-serif" font-size="11.5" fill="#334155">4 deterministic figures</text>
+<line x1="710" y1="173" x2="726" y2="173" stroke="#64748b" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="728" y="98" width="212" height="150" rx="9" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+<rect x="728" y="98" width="212" height="5" rx="2.5" fill="#7c3aed"/>
+<rect x="740" y="108" width="67" height="17" rx="8.5" fill="#ffffff" stroke="#7c3aed" stroke-width="0.9"/>
+<text x="773.5" y="120" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" font-weight="600" fill="#5b21b6">OUTPUTS</text>
+<text x="740" y="141" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#5b21b6">4. Verdicts &amp; Envelopes</text>
+<text x="740" y="160" font-family="ui-monospace,monospace" font-size="11" fill="#1e293b">MAINTAINED · STALE</text>
+<text x="740" y="178" font-family="ui-monospace,monospace" font-size="11" fill="#1e293b">NEEDS_ATTENTION · OUTSIDE</text>
+<text x="740" y="196" font-family="system-ui,sans-serif" font-size="11.5" fill="#334155">build_report &amp; replay</text>
+<text x="740" y="214" font-family="system-ui,sans-serif" font-size="11.5" fill="#334155">context &amp; replay_digest</text>
+<text x="740" y="232" font-family="system-ui,sans-serif" font-size="11.5" fill="#334155">build_envelope() 1.0</text>
+<text x="24" y="274" font-family="system-ui,sans-serif" font-size="11.5" font-weight="700" fill="#1e40af">STEWARDSHIP SURFACES &amp; CLAIM BOUNDARIES</text>
+<rect x="20" y="286" width="218" height="102" rx="9" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<rect x="20" y="286" width="218" height="5" rx="2.5" fill="#2563eb"/>
+<text x="32" y="312" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#1e40af">Staged Intake</text>
+<rect x="135" y="296" width="93" height="18" rx="9" fill="#ffffff" stroke="#2563eb" stroke-width="0.9"/>
+<text x="181.5" y="308.5" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" font-weight="600" fill="#1e40af">FAIL-CLOSED</text>
+<text x="32" y="336" font-family="system-ui,sans-serif" font-size="11.5" fill="#334155">Invalid dates exit code 2;</text>
+<text x="32" y="355" font-family="system-ui,sans-serif" font-size="11.5" fill="#334155">unmatched files -> OUTSIDE</text>
+<rect x="256" y="286" width="218" height="102" rx="9" fill="#f0fdfa" stroke="#0d9488" stroke-width="1.5"/>
+<rect x="256" y="286" width="218" height="5" rx="2.5" fill="#0d9488"/>
+<text x="268" y="312" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#115e59">Care Signals</text>
+<rect x="393" y="296" width="71" height="18" rx="9" fill="#ffffff" stroke="#0d9488" stroke-width="0.9"/>
+<text x="428.5" y="308.5" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" font-weight="600" fill="#115e59">SURFACES</text>
+<text x="268" y="336" font-family="system-ui,sans-serif" font-size="11.5" fill="#334155">Tracks declared handovers,</text>
+<text x="268" y="355" font-family="system-ui,sans-serif" font-size="11.5" fill="#334155">runs, logs &amp; cadences</text>
+<rect x="492" y="286" width="218" height="102" rx="9" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+<rect x="492" y="286" width="218" height="5" rx="2.5" fill="#7c3aed"/>
+<text x="504" y="312" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#5b21b6">Replay Digest</text>
+<rect x="636" y="296" width="64" height="18" rx="9" fill="#ffffff" stroke="#7c3aed" stroke-width="0.9"/>
+<text x="668.0" y="308.5" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" font-weight="600" fill="#5b21b6">CUSTODY</text>
+<text x="504" y="336" font-family="system-ui,sans-serif" font-size="11.5" fill="#334155">Binds normalized file,</text>
+<text x="504" y="355" font-family="system-ui,sans-serif" font-size="11.5" fill="#334155">window &amp; evaluator version</text>
+<rect x="728" y="286" width="212" height="102" rx="9" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+<rect x="728" y="286" width="212" height="5" rx="2.5" fill="#475569"/>
+<text x="740" y="312" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#1e293b">Not an SLA</text>
+<rect x="859" y="296" width="71" height="18" rx="9" fill="#ffffff" stroke="#475569" stroke-width="0.9"/>
+<text x="894.5" y="308.5" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" font-weight="600" fill="#1e293b">BOUNDARY</text>
+<text x="740" y="336" font-family="system-ui,sans-serif" font-size="11.5" fill="#334155">Declaration coverage only;</text>
+<text x="740" y="355" font-family="system-ui,sans-serif" font-size="11.5" fill="#334155">never uptime or warranty</text>
+<rect x="20" y="401" width="920" height="36" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.1"/>
+<text x="34" y="423.5" font-family="system-ui,sans-serif" font-size="11.5" font-weight="600" fill="#334155">Stewardship Gate: Pure stdlib runtime; absent siblings report NOT_INSTALLED, never an exception.</text>
+<text x="926" y="423.5" text-anchor="end" font-family="ui-monospace,monospace" font-size="11" fill="#475569">line.report-envelope/1.0</text>
+</svg>
