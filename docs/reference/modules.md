@@ -1,4 +1,4 @@
-# blue_line
+# Blue Line runtime modules
 
 Runtime package. Pure standard library, frozen dataclasses, no mocking.
 
@@ -22,5 +22,6 @@ Runtime package. Pure standard library, frozen dataclasses, no mocking.
 | `version.py` | Package version marker |
 | `figures/` | Deterministic figure specs, SVG/PNG builders |
 
-Contracts and the claim boundaries these modules enforce: `docs/reports.md`
-and `docs/claim_boundaries.md`.
+See the [report contract](../reports.md) and [claim register](../claim_boundaries.md)
+for behavior. The supporting guides cover [figures](figures.md),
+[data](data.md), [envelopes](envelopes.md) and [verification](verification.md).

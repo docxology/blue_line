@@ -18,7 +18,7 @@ A reading states, first person and underclaiming:
   I exclude future dates at review and distinguish them from unreadable intake.
 - I derive my worklist from the same missing/stale surfaces. Owner, next-review
   date and reference remain optional file-level declarations; I infer none.
-- I distinguish ordered registry identity, legacy coverage-projection identity,
+- I distinguish ordered registry identity, coverage-projection identity,
   normalized-input/context replay identity and subject-bound envelope identity.
   A hash is a content identifier under ordinary SHA-256 assumptions, not proof
   of authenticity or a mathematical impossibility of collision.

@@ -7,7 +7,7 @@
 - Repo-wide contract: root `AGENTS.md`.
 
 ## Layout
-- `blue_line/` — runtime package; module inventory in `blue_line/README.md`.
+- `blue_line/` — runtime package. See [module inventory](../docs/reference/modules.md).
 - `blue_line/figures/` — deterministic figure builders; notes in
   `blue_line/figures/AGENTS.md`.
 

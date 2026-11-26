@@ -6,7 +6,7 @@ and needs someone to keep working on it. The blue line is an instrument for
 making that keeping-work inspectable.
 
 The instrument belongs to the docxology line set, a governance set of
-color-named instruments. Each line answers one question. The blue line's
+color-named instruments [@blue_line2026]. Each line answers one question. The blue line's
 question is **What must I keep working?** Its job is stewardship of
 maintained commitments; its refusal is to become a warranty, SLA,
 availability guarantee, or proof of maintenance.

@@ -43,7 +43,7 @@ OUTSIDE_SCOPE. Declaration order and required-signal order remain semantic:
 the published registry digest is unchanged and binds ordered content; vocabulary
 and tag sets are sorted before hashing.
 
-`reading_digest` remains the legacy projection hash. It intentionally omits input,
+`reading_digest` remains the coverage projection hash. It intentionally omits input,
 effective policy and registry version. Distinct declarations with equivalent
 coverage can share it. This is projection equality, not a cryptographic collision.
 `blue_line.evaluation-context/1.0` binds the normalized-input hash, resolved date,
@@ -52,7 +52,7 @@ effective window, unknown-tag policy and package/evaluator version.
 diagnostics. Version changes must change replay identity even for the same verdict.
 
 `blue_line.report/1.0` carries normalized input, context and its digest, registry
-version, legacy projection and its digest, replay digest, review notes and surfaces.
+version, coverage projection and its digest, replay digest, review notes and surfaces.
 `replay_report` re-evaluates the staged declaration against a supplied matching
 registry and the current matching evaluator version, and compares the whole report.
 Original intake diagnostics are retained as a transcript: replay does not recover
@@ -80,7 +80,7 @@ OUTSIDE_SCOPE reading can retain a local report. Blocked intake has no normalize
 declaration: `build_report` refuses it and the CLI emits `report: null`.
 Neither case is eligible for an envelope.
 NEEDS_ATTENTION and STALE remain recordable. `report_ref` remains the precisely
-named legacy projection digest; a companion report adds replay context without
+named coverage projection digest; a companion report adds replay context without
 altering the shared schema. `envelope_digest` identifies the entire envelope,
 including subject and sorted snapshot references, separately from report content.
 Identifiers and snapshot references are declarations, not inspected content.

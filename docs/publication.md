@@ -22,10 +22,9 @@ instrument's version retain their original identities.
 
 Regenerate ledger/manuscript variables, examples/reports and figures; run the full
 suite with its coverage floor, lint, type checks, registry, ledger and publication
-checks. Render PDF and HTML using a read-only export of template `origin/main`
-under GitVault, without touching an active template checkout. Record the engine
-commit, commands, failures, artifact checksums and visual inspection. An engine
-failure blocks this release and is reported, never patched in the engine.
+checks. Follow the [pinned render procedure](standalone.md) in an isolated
+Template checkout. Record the engine revision, commands, artifact checksums
+and visual inspection. Report any failed engine check in the release packet.
 SVG determinism is distinct from PNG determinism: byte-identical PNG reproduction
 requires matching renderer, libraries, fonts and environment. Figure builds write
 a raster provenance sidecar; it does not certify a fully pinned portable runtime.

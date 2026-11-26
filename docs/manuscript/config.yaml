@@ -3,6 +3,7 @@ paper:
   subtitle: "Proposed source edition; source ZIP and standalone manuscript identities are separate"
   cover:
     image: "../../output/figures/blue_line_cover.png"
+    alt: "Symbolic blue strokes along parallel tracks illustrate the care of ongoing commitments."
   version: "0.3.2"
   date: "2026-11-09"
 authors:

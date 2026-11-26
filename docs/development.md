@@ -7,9 +7,9 @@ is not a Python dependency: install librsvg (`apt-get install librsvg2-bin` on
 Debian/Ubuntu, `brew install librsvg` on macOS) so that it is on `PATH`.
 
 ```bash
-uv sync
-uv run pytest tests/ --cov=src --cov-report=term
-uv run ruff check src tests scripts
+uv sync --locked
+uv run --locked pytest tests/ --cov=src --cov-report=term
+uv run --locked ruff check src tests scripts
 ```
 
 ## Layout rules
@@ -37,11 +37,11 @@ After a successful render, `uv run python scripts/build_manuscript_bundle.py`
 packages the full web tree (including local font loader and favicon), figures
 and PDF. Inspect the extracted bundle before distributing it.
 
-The 0.3.1 change updates documentation and publication metadata only. Refresh
-current examples, manuscript variables, figures, renderer provenance, and rendered
-manuscript outputs from the final source before preparing new release evidence.
-Do not overwrite historical `docs/releases/` packets or relabel their receipts.
-Blue's inputs and outputs must not contain private sibling source or provenance.
+Generate examples, manuscript variables, figures and renderer provenance from
+the inspected source revision. [Render the manuscript](standalone.md) before
+collecting the current artifacts. Keep each version's evidence and receipts
+under [release records](releases/README.md). Use Blue Line source and inputs
+cleared for its public release.
 
 ## Release process
 
