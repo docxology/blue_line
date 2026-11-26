@@ -8,6 +8,7 @@ import sys
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--template-root", type=Path, required=True)
+    parser.add_argument("--prepare-only", action="store_true", help="Hydrate sources for Template Stage 03.")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     sys.path.insert(0, str(args.template_root.resolve()))
@@ -16,4 +17,5 @@ if __name__ == "__main__":
 
     variables = json.loads((root / "output/data/manuscript_variables.json").read_text())
     write_resolved_manuscript_tree(root, {key.upper(): str(value) for key, value in variables.items()})
-    raise SystemExit(execute_render_pipeline("working/blue_line", repo_root=args.template_root.resolve()))
+    if not args.prepare_only:
+        raise SystemExit(execute_render_pipeline("working/blue_line", repo_root=args.template_root.resolve()))

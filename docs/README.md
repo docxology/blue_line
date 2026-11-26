@@ -1,15 +1,19 @@
-# docs
+# Blue Line documentation
 
 Documentation for the blue line. `claim_boundaries.md` is the register of
 record: where prose and a generated artifact disagree, it wins.
 
-| File | Contents |
+| Guide | Contents |
 |------|----------|
-| `claim_boundaries.md` | What this project claims and does not claim |
-| `reports.md` | Declaration, evaluation and transport contracts: CLI object, intake policy, digests, report and envelope schemas, worklist |
-| `development.md` | Setup, layout rules, derived-data regeneration, release gates |
-| `publication.md` | Reserve-first DOI and versioned release procedure |
-| `extensibility.md` | line_set binding and the registry extension contract |
-| `manuscript/` | The line's manuscript (`config.yaml` plus numbered section files) |
-| `releases/` | One note per version (`vX.Y.Z.md`) recording the gates that passed |
-| `reviews/` | Dated implementation and independent-audit records |
+| [Read a declaration](usage.md) | Install the CLI, supply a review date and interpret each verdict |
+| [Report and envelope contracts](reports.md) | Intake, digests, report schema, envelope eligibility and worklist |
+| [Claim register](claim_boundaries.md) | Declaration coverage and its evidence limits |
+| [Development](development.md) | Setup, layout, derived data and release gates |
+| [Command reference](reference/commands.md) | Native commands, outputs and module entry points |
+| [Implementation reference](reference/modules.md) | Runtime modules, figures, data and tests |
+| [Render the manuscript](standalone.md) | Pinned Template setup, generation, validation and output |
+| [Manuscript](manuscript/README.md) | Ordered source, publication configuration and bibliography |
+| [Extensibility](extensibility.md) | `line_set` binding and registry extension contract |
+| [Publication procedure](publication.md) | Source citation, qualified release evidence and archive objects |
+| [Release records](releases/README.md) | Versioned gate results and artifact receipts |
+| [Dated reviews](reviews/) | Implementation and independent-audit records |

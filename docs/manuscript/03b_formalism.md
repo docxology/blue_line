@@ -7,7 +7,7 @@ A **reading** contains file verdict $v$, findings $F$, intake transcript $N$,
 review diagnostics $Q$, resolved date $d$, registry digest $g$ and version,
 normalized declaration, and versioned evaluation context. The context binds
 normalized-input identity, effective window, unknown-tag policy and evaluator
-version. The legacy projection is a proper subset of this record.
+version. The coverage projection is a proper subset of this record.
 :::
 
 ::: {#def:commitment}

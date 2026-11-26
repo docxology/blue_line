@@ -41,12 +41,12 @@ separate from unreadable-date intake notes. Omitted CLI dates use the current
 local date; explicit dates support replay. Every successful CLI read exposes
 the effective policy and registry identity.
 
-The legacy reading hash identifies a coverage projection, not source identity.
+The reading hash identifies a coverage projection, not source identity.
 A versioned companion report binds normalized input, effective policy, evaluator
 version, review date and registry version in a replay digest. Replay recomputes
 the staged evaluation and preserves the intake transcript; it neither recovers
 discarded input nor verifies original file bytes, references or authenticity.
-The shared envelope retains its field set and legacy projection reference;
+The shared envelope retains its field set and coverage projection reference;
 only applicable readings with complete identity are eligible for construction.
 Subject-bound envelope identity is separate from report-content identity.
 

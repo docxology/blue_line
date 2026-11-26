@@ -5,8 +5,8 @@
   sibling checkout, template, or local-only path is involved.
 
 ## Layout
-- `specs.py`, `svg.py`, `cover.py`, `build.py` — see `README.md` in this
-  directory for the one-line inventory.
+- `specs.py`, `svg.py`, `cover.py`, `build.py` are indexed in the
+  [figure reference](../../../docs/reference/figures.md).
 
 ## Gotchas
 - Figures derive from repo data only: no network access, no sibling-repo reads.

@@ -8,6 +8,8 @@ question — **What must I keep working?** — by reading a declared file of
 commitments against a versioned registry and returning a verdict that
 describes declaration coverage of care signals at a review date.
 
+[Documentation](docs/README.md) · [Read a declaration](docs/usage.md) · [Render the manuscript](docs/standalone.md)
+
 ![blue_line record-flow architecture: CommitmentFile and CareSignal staged intake, 12-commitment registry, stewardship surface reader and worklist, and MAINTAINED / NEEDS_ATTENTION / STALE / OUTSIDE_SCOPE verdicts and report envelopes](docs/assets/architecture-overview.svg)
 
 ## What it is
@@ -24,25 +26,18 @@ describes declaration coverage of care signals at a review date.
 - Replay reports binding normalized declarations, effective policy and evaluator
   version, plus a declaration-level worklist derived from the same surfaces.
 
-## What it is never
+## Scope
 
-A warranty, SLA, availability guarantee, or proof of maintenance. A
-MAINTAINED verdict is a declaration-coverage statement: it says the steward
-declared the required care signals fresh at the review date. It does not
-verify the care happened, and it never authorizes an action. See
-[docs/claim_boundaries.md](docs/claim_boundaries.md), the register of record.
+MAINTAINED means the steward declared fresh care signals at the review date.
+The [claim register](docs/claim_boundaries.md) defines that coverage result
+and the evidence required for assertions about actual work or availability.
 
 ## Usage
 
 ```bash
-uv sync
-uv run pytest tests/ --cov=src --cov-report=term
-uv run ruff check src tests scripts
-uv run python scripts/build_figures.py
-uv run python scripts/check_registry.py
-uv run python scripts/read_file_cli.py '{"description": "my repo", "tags": ["code", "docs"], "evidence": ["handover_note"]}'
-uv run python scripts/gen_formalism_ledger.py
-uv run python scripts/check_publication.py
+uv sync --locked
+uv run --locked python scripts/read_file_cli.py \
+  '{"description":"my repo","tags":["code","docs"],"evidence":["handover_note"]}'
 ```
 
 Pure standard library at runtime; dev dependencies are pytest, pytest-cov,
@@ -63,6 +58,9 @@ containers. Optional `declared_owner`, `declared_next_review` (`YYYY-MM-DD`) and
 See [the report contract](docs/reports.md) for projection versus replay identity,
 schema migration, intake-container policy and envelope eligibility, and
 [publication](docs/publication.md) for source-edition citation, historical archive boundaries, and authorized release procedures.
+
+Use the [development guide](docs/development.md) to verify a checkout and
+regenerate figures and ledgers.
 
 ## The Line Set
 
