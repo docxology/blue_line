@@ -4,7 +4,7 @@ Blue Line runs with zero sibling line projects. Its Python runtime uses the stan
 
 Install uv, Pandoc, XeLaTeX and the `rsvg-convert` executable. Use `librsvg2-bin` on Debian or Ubuntu and `librsvg` on macOS. Template lists its LaTeX and optional render tools. [Template run guide](https://github.com/docxology/template/blob/87704feae0a4490ef7dad9c931d268e8c30273c2/docs/RUN_GUIDE.md)
 
-Run from a clean Blue Line checkout.
+Run from a clean Blue Line checkout in a directory named `blue_line`.
 
 ```sh
 blue_project="$(pwd -P)"
